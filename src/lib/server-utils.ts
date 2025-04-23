@@ -1,6 +1,6 @@
 'use server'
 
-import { comparePassword, hashPassword } from './auth'
+import { comparePassword, hashPassword } from './auth-utils'
 import prisma from './db'
 
 export async function createUser(
