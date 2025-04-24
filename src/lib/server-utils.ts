@@ -1,7 +1,9 @@
 'use server'
 
+import { redirect } from 'next/navigation'
 import { comparePassword, hashPassword } from './auth-utils'
 import prisma from './db'
+import { createSession } from './session'
 
 export async function createUser(
   username: string,
@@ -25,16 +27,16 @@ export async function loginUser(email: string, password: string) {
   const user = await prisma.user.findUnique({
     where: { email },
   })
-
   if (!user) {
-    throw new Error('User not found')
+    return { ok: false, message: 'Invalid credentials' }
   }
 
   const isValid = await comparePassword(password, user.password)
-
   if (!isValid) {
-    throw new Error('Invalid password')
+    return { ok: false, message: 'Invalid credentials' }
   }
 
-  return user
+  await createSession(user)
+
+  redirect('/')
 }

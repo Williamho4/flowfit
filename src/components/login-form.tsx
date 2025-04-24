@@ -1,7 +1,6 @@
 'use client'
 
 import { loginUser } from '@/lib/server-utils'
-import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
 type Inputs = {
@@ -13,17 +12,23 @@ export default function LoginForm() {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<Inputs>()
-  const router = useRouter()
 
   return (
     <form
       onSubmit={handleSubmit(async (data) => {
         const { email, password } = data
-        const user = await loginUser(email, password)
-        if (user) {
-          router.push('/')
+        const res = await loginUser(email, password)
+
+        if (!res.ok) {
+          setError('root', {
+            type: 'server',
+            message: res.message || 'Something went wrong',
+          })
+        } else {
+          alert('Logged in!')
         }
       })}
     >
@@ -40,6 +45,7 @@ export default function LoginForm() {
       <button type="submit" disabled={isSubmitting}>
         {isSubmitting ? 'Logging In' : 'Log In'}
       </button>
+      {errors.root && <p>{errors.root.message}</p>}
       {isSubmitSuccessful && <p>Logged In Successfully</p>}
     </form>
   )
