@@ -1,6 +1,7 @@
 import { getBaseExercises, getWorkouts } from '@/lib/server-utils'
 import { getSession } from '@/lib/session'
 import { redirect } from 'next/navigation'
+import { Fragment } from 'react'
 
 export default async function Home() {
   const session = await getSession()
@@ -19,8 +20,6 @@ export default async function Home() {
     console.error('no exercises')
   }
 
-  console.log(baseExercises)
-
   return (
     <>
       <div>
@@ -29,11 +28,11 @@ export default async function Home() {
           <div key={workout.id}>
             <h1>{workout.title}</h1>
             {workout.exercises.map((exercise) => (
-              <>
+              <Fragment key={exercise.id}>
                 <div>Sets {exercise.sets}</div>
                 <div>Reps {exercise.reps}</div>
                 <div>{exercise.baseExercise.name}</div>
-              </>
+              </Fragment>
             ))}
           </div>
         ))}
