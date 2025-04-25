@@ -10,12 +10,16 @@
   },
   "dependencies": {
     "@prisma/client": "^6.6.0",
+    "@reduxjs/toolkit": "^2.7.0",
     "bcryptjs": "^3.0.2",
     "jose": "^6.0.10",
     "next": "15.3.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-hook-form": "^7.56.1"
+    "react-hook-form": "^7.56.1",
+    "react-redux": "^9.2.0",
+    "redux": "^5.0.1",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
