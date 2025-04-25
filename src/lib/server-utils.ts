@@ -50,7 +50,7 @@ export async function getWorkouts(
     include: {
       exercises: {
         include: {
-          exercise: true,
+          baseExercise: true,
         },
       },
     },
@@ -66,7 +66,7 @@ export async function getWorkouts(
 export async function getBaseExercises(): Promise<
   ServerResponse<BaseExercise[]>
 > {
-  const exercises = await prisma.exercise.findMany()
+  const exercises = await prisma.baseExercise.findMany()
 
   if (exercises.length === 0) {
     return { ok: false, message: 'Could not get exercises' }

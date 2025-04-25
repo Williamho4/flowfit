@@ -32,16 +32,16 @@ model Workout {
 }
 
 model WorkoutExercise {
-  id         Int      @id @default(autoincrement())
-  workout    Workout  @relation(fields: [workoutId], references: [id])
-  workoutId  Int
-  exercise   Exercise @relation(fields: [exerciseId], references: [id])
-  exerciseId Int
-  sets       Int
-  reps       Int
+  id           Int          @id @default(autoincrement())
+  workout      Workout      @relation(fields: [workoutId], references: [id])
+  workoutId    Int
+  baseExercise BaseExercise @relation(fields: [exerciseId], references: [id])
+  exerciseId   Int
+  sets         Int
+  reps         Int
 }
 
-model Exercise {
+model BaseExercise {
   id          Int               @id @default(autoincrement())
   name        String            @unique
   description String?

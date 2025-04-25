@@ -23,7 +23,7 @@ export type Exercise = {
   exerciseId: number
   sets: number
   reps: number
-  exercise: BaseExercise
+  baseExercise: BaseExercise
 }
 
 export type BaseExercise = {

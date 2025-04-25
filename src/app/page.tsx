@@ -11,7 +11,7 @@ export default async function Home() {
 
   const { username } = session.user
 
-  const { data, ok } = await getWorkouts(session.user.id)
+  const { data: workouts, ok } = await getWorkouts(session.user.id)
 
   const { data: baseExercises, ok: baseExercisesOk } = await getBaseExercises()
 
@@ -25,14 +25,15 @@ export default async function Home() {
     <>
       <div>
         {`${username}'s Workout`}
-        {data?.map((workout) => (
+        {workouts?.map((workout) => (
           <div key={workout.id}>
-            {workout.title}
+            <h1>{workout.title}</h1>
             {workout.exercises.map((exercise) => (
-              <div key={exercise.id}>
-                {`Reps: ${exercise.reps} Sets: ${exercise.sets}`}
-                {exercise.exercise.name}
-              </div>
+              <>
+                <div>Sets {exercise.sets}</div>
+                <div>Reps {exercise.reps}</div>
+                <div>{exercise.baseExercise.name}</div>
+              </>
             ))}
           </div>
         ))}
@@ -40,7 +41,9 @@ export default async function Home() {
 
       <div>
         {baseExercises?.map((exercise) => (
-          <div>{`${exercise.category}, ${exercise.description}, ${exercise.name}`}</div>
+          <div
+            key={exercise.id}
+          >{`${exercise.category}, ${exercise.description}, ${exercise.name}`}</div>
         ))}
       </div>
     </>
