@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation'
 import { comparePassword, hashPassword } from './auth-utils'
 import prisma from './db'
 import { createSession } from './session'
-import { Workout, ServerResponse } from './types'
+import { Workout, ServerResponse, BaseExercise } from './types'
 
 export async function createUser(
   username: string,
@@ -61,4 +61,16 @@ export async function getWorkouts(
   }
 
   return { ok: true, data: workouts }
+}
+
+export async function getBaseExercises(): Promise<
+  ServerResponse<BaseExercise[]>
+> {
+  const exercises = await prisma.exercise.findMany()
+
+  if (exercises.length === 0) {
+    return { ok: false, message: 'Could not get exercises' }
+  }
+
+  return { ok: true, data: exercises }
 }
