@@ -1,6 +1,5 @@
 import { getWorkouts } from '@/lib/server-utils'
 import { getSession } from '@/lib/session'
-import { calcLength } from 'framer-motion'
 import { redirect } from 'next/navigation'
 
 export default async function Home() {
@@ -10,10 +9,13 @@ export default async function Home() {
     redirect('/login')
   }
 
+  const { username } = session.user
+
   const { data, ok } = await getWorkouts(session.user.id)
 
   return (
     <div>
+      {`${username}'s Workout`}
       {data?.map((workout) => (
         <div key={workout.id}>
           {workout.title}
