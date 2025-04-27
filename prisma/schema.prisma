@@ -32,13 +32,19 @@ model Workout {
 }
 
 model WorkoutExercise {
-  id           Int          @id @default(autoincrement())
-  workout      Workout      @relation(fields: [workoutId], references: [id])
+  id           Int                  @id @default(autoincrement())
+  workout      Workout              @relation(fields: [workoutId], references: [id])
   workoutId    Int
-  baseExercise BaseExercise @relation(fields: [exerciseId], references: [id])
+  baseExercise BaseExercise         @relation(fields: [exerciseId], references: [id])
   exerciseId   Int
-  sets         Int
-  reps         Int
+  sets         WorkoutExerciseSet[] // A workout exercise can have multiple sets
+}
+
+model WorkoutExerciseSet {
+  id                Int             @id @default(autoincrement()) // Primary key for the set
+  workoutExercise   WorkoutExercise @relation(fields: [workoutExerciseId], references: [id]) // Relation to the workout exercise
+  workoutExerciseId Int // Foreign key to WorkoutExercise
+  reps              Int // Number of reps in this set
 }
 
 model BaseExercise {
@@ -46,5 +52,6 @@ model BaseExercise {
   name        String            @unique
   description String?
   category    String?
+  imgUrl      String?
   workouts    WorkoutExercise[]
 }

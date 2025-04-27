@@ -1,0 +1,20 @@
+.exercise-list-container {
+  width: 450px;
+  height: 600px;
+  background-color: gray;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.exercise-list {
+  width: 94%;
+  height: 98%;
+  overflow: auto;
+  background-color: gray;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0px;
+}

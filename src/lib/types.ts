@@ -1,3 +1,5 @@
+import { BaseExercise } from '@prisma/client'
+
 export type UserInfo = {
   id: number
   email: string
@@ -21,16 +23,14 @@ export type Exercise = {
   id: number
   workoutId: number
   exerciseId: number
-  sets: number
-  reps: number
+  sets?: Set[]
   baseExercise: BaseExercise
 }
 
-export type BaseExercise = {
+export type Set = {
   id: number
-  name: string
-  description: string | null
-  category: string | null
+  reps: number
+  workoutExerciseId: number
 }
 
 export type ServerResponse<T> = {
