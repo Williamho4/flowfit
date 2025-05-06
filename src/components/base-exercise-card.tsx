@@ -18,8 +18,8 @@ export default function BaseExerciseCard({
     <section className={styles.card} onClick={() => onSelect?.(exercise)}>
       <div className={styles.card__info}>
         <h1 className={styles.card__name}>{exercise.name}</h1>
-        <p className={styles.card__desc}>{exercise.description}</p>
         <p className={styles.card__category}>{exercise.category}</p>
+        <p className={styles.card__desc}>{exercise.description}</p>
       </div>
       <Image
         className={styles.card__image}
