@@ -7,7 +7,7 @@ const key = new TextEncoder().encode(process.env.SECRET_KEY)
 
 export async function createSession(user: User) {
   const { id, email, username } = user
-  const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+  const expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)
 
   const payload: Payload = {
     user: {
@@ -31,7 +31,7 @@ export async function encrypt(payload: Payload) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
-    .setExpirationTime('1h')
+    .setExpirationTime(Math.floor(payload.expires.getTime() / 1000))
     .sign(key)
 }
 

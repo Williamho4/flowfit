@@ -15,6 +15,18 @@ export default function WorkoutPlanner({ baseExercises }: WorkoutPlannerProps) {
   const [selectedExercise, setSelectedExercise] = useState<BaseExercise | null>(
     null
   )
+  const [workout, setWorkout] = useState<BaseExercise[] | []>([])
+  const [error, setError] = useState<string | null>(null)
+
+  const handleAddExercise = (exercise: BaseExercise) => {
+    setError(null)
+
+    if (workout.some((e) => e.id === exercise.id)) {
+      return setError('Exercise already added')
+    }
+
+    setWorkout((prev) => [...prev, exercise])
+  }
 
   return (
     <div className={styles.dashboard}>
@@ -23,9 +35,17 @@ export default function WorkoutPlanner({ baseExercises }: WorkoutPlannerProps) {
           baseExercises={baseExercises}
           setSelected={setSelectedExercise}
         />
-        <SelectedExercisesList />
+        <SelectedExercisesList workout={workout} />
       </div>
-      <SelectedExercise selectedExercise={selectedExercise} />
+      {error && <h2 className={styles.dashboard__error}>{error}</h2>}
+      <div className={styles.dashboard__actions}>
+        <SelectedExercise
+          selectedExercise={selectedExercise}
+          handleAddExercise={handleAddExercise}
+          setSelected={setSelectedExercise}
+        />
+        <button>Submit Workout</button>
+      </div>
     </div>
   )
 }

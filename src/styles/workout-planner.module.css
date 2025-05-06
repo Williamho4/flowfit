@@ -1,3 +1,20 @@
+@keyframes fade-in-from-top {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.dashboard__error {
+  color: red;
+  animation: fade-in-from-top 0.5s;
+}
+
 .dashboard {
   display: flex;
   flex-direction: column;
@@ -10,4 +27,10 @@
 .dashboard__lists {
   display: flex;
   column-gap: 40px;
+}
+
+.dashboard__actions {
+  display: flex;
+  column-gap: 20px;
+  align-items: center;
 }
