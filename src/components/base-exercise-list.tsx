@@ -1,25 +1,35 @@
-import { getBaseExercises } from '@/lib/server-utils'
+'use client'
 
-import '../styles/base-exercise-list.css'
+import styles from '@/styles/base-exercises-list.module.css'
 import BaseExerciseCard from './base-exercise-card'
+import { BaseExercise } from '@prisma/client'
+import { Exercise } from '@/lib/types'
 
-export default async function BaseExerciseList() {
-  const baseExercises = await getBaseExercises()
+type BaseExerciseListProps = {
+  baseExercises: BaseExercise[] | undefined
+  setSelected: React.Dispatch<React.SetStateAction<BaseExercise | null>>
+}
 
-  console.log(baseExercises.ok)
-
+export default function BaseExerciseList({
+  baseExercises,
+  setSelected,
+}: BaseExerciseListProps) {
   return (
     <>
-      {!baseExercises.ok ? (
-        <div>Could not load exercises</div>
-      ) : (
-        <div className="exercise-list-container">
-          <ul className="exercise-list">
-            {baseExercises.data?.map((exercise) => (
-              <BaseExerciseCard key={exercise.id} exercise={exercise} />
+      {baseExercises ? (
+        <div className={styles.container}>
+          <ul className={styles.list}>
+            {baseExercises.map((exercise) => (
+              <BaseExerciseCard
+                onSelect={setSelected}
+                key={exercise.id}
+                exercise={exercise}
+              />
             ))}
           </ul>
         </div>
+      ) : (
+        <div>Could not load base exercises</div>
       )}
     </>
   )

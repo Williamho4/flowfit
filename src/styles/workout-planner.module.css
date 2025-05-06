@@ -1,0 +1,13 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: auto;
+  padding: 16px 0;
+  row-gap: 20px;
+}
+
+.dashboard__lists {
+  display: flex;
+  column-gap: 40px;
+}

@@ -1,0 +1,30 @@
+.card {
+  background-color: #f9fafb;
+  border: solid 1px #e0e0e0;
+  color: #263238;
+  padding: 10px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 320px;
+  border-radius: 4px;
+}
+
+.card__info {
+  width: 220px;
+}
+
+.card__name {
+  font-size: 18px;
+}
+
+.card__desc {
+}
+
+.card__category {
+}
+
+.card__image {
+  border: solid 1px black;
+  border-radius: 2px;
+}

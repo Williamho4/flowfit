@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 import StoreProvider from './StoreProvider'
 import Container from '@/components/container'
+import Header from '@/components/header'
+import Footer from '@/components/footer'
 
 export const metadata: Metadata = {
   title: 'FlowFit',
@@ -17,7 +19,11 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <StoreProvider>
-          <Container>{children}</Container>
+          <Container>
+            <Header />
+            {children}
+            <Footer />
+          </Container>
         </StoreProvider>
       </body>
     </html>

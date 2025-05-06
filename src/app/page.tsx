@@ -1,5 +1,3 @@
-import BaseExerciseList from '@/components/base-exercise-list'
-import WorkoutList from '@/components/workout-list'
 import { getSession } from '@/lib/session'
 import { redirect } from 'next/navigation'
 
@@ -10,9 +8,5 @@ export default async function Home() {
     redirect('/login')
   }
 
-  return (
-    <div>
-      <BaseExerciseList />
-    </div>
-  )
+  return
 }

@@ -1,0 +1,16 @@
+.selected {
+  width: 400px;
+  height: 120px;
+  background-color: #f1f1f1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10px;
+  padding: 12px 0;
+  border-radius: 6px;
+}
+
+.selected__button {
+  height: 30px;
+  width: 40px;
+}
