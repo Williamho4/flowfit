@@ -1,10 +1,19 @@
-import { Set } from "@/lib/types";
+"use client";
+
+import { useState } from "react";
+import MultiSteps from "./multi-steps";
+import { InputSet, Set } from "@/lib/types";
 
 type ExerciseCardBackProps = {
   sets: Set[];
 };
 
 export default function ExerciseCardBack({ sets }: ExerciseCardBackProps) {
+  const [step, setStep] = useState(1);
+  const [totalSets, setTotalSets] = useState<InputSet[] | []>([]);
+
+  console.log(sets);
+
   return (
     <div>
       {sets?.length ? (
@@ -19,8 +28,35 @@ export default function ExerciseCardBack({ sets }: ExerciseCardBackProps) {
         </>
       ) : (
         <>
-          <label>How many sets</label>
-          <input type="number" />
+          {step === 1 ? (
+            <>
+              <label>How many sets</label>
+              <input
+                min="1"
+                max="5"
+                type="number"
+                onChange={(e) => {
+                  const count = Math.min(Number(e.target.value || "0"), 5);
+                  const newSets = Array.from({ length: count }, () => ({
+                    reps: 0,
+                    weight: 0,
+                  }));
+                  setTotalSets(newSets);
+                }}
+              />
+            </>
+          ) : (
+            <>
+              {totalSets.map((set, index) => (
+                <div key={index}>
+                  <label>Set {index + 1}</label>
+                  <input type="number" placeholder={set.reps.toString()} />
+                </div>
+              ))}
+              <button>Confirm</button>
+            </>
+          )}
+          <MultiSteps step={step} setStep={setStep} />
         </>
       )}
     </div>

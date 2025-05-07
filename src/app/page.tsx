@@ -1,12 +1,13 @@
-import { getSession } from '@/lib/session'
-import { redirect } from 'next/navigation'
+import MultiSteps from "@/components/multi-steps";
+import { getSession } from "@/lib/session";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
-  const session = await getSession()
+  const session = await getSession();
 
   if (!session) {
-    redirect('/login')
+    redirect("/login");
   }
 
-  return
+  return <MultiSteps></MultiSteps>;
 }

@@ -1,4 +1,4 @@
-import { BaseExercise } from "@prisma/client";
+import { BaseExercise, WorkoutExerciseSet } from "@prisma/client";
 
 export type UserInfo = {
   id: number;
@@ -27,11 +27,12 @@ export type Exercise = {
   baseExercise: BaseExercise;
 };
 
-export type Set = {
-  id: number;
+export type InputSet = {
   reps: number;
-  workoutExerciseId: number;
+  weight: number;
 };
+
+export type Set = WorkoutExerciseSet & {};
 
 export type ServerResponse<T> = {
   ok: boolean;
