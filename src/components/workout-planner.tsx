@@ -19,8 +19,6 @@ export default function WorkoutPlanner({ baseExercises }: WorkoutPlannerProps) {
   const [error, setError] = useState<string | null>(null)
 
   const handleAddExercise = (exercise: BaseExercise) => {
-    setError(null)
-
     if (workout.some((e) => e.id === exercise.id)) {
       return setError('Exercise already added')
     }
@@ -34,15 +32,16 @@ export default function WorkoutPlanner({ baseExercises }: WorkoutPlannerProps) {
         <BaseExerciseList
           baseExercises={baseExercises}
           setSelected={setSelectedExercise}
+          setError={setError}
         />
         <SelectedExercisesList workout={workout} />
       </div>
-      {error && <h2 className={styles.dashboard__error}>{error}</h2>}
       <div className={styles.dashboard__actions}>
         <SelectedExercise
           selectedExercise={selectedExercise}
           handleAddExercise={handleAddExercise}
           setSelected={setSelectedExercise}
+          error={error}
         />
         <div className={styles.dashboard__form}>
           <form action="" className={styles.dashboard__inputs}>

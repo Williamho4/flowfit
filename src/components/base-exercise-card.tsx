@@ -7,15 +7,23 @@ import image from '../../public/graypic.png'
 
 type BaseExerciseCardProps = {
   exercise: BaseExercise
+  setError?: React.Dispatch<React.SetStateAction<string | null>>
   onSelect?: (exercise: BaseExercise) => void
 }
 
 export default function BaseExerciseCard({
   exercise,
   onSelect,
+  setError,
 }: BaseExerciseCardProps) {
   return (
-    <section className={styles.card} onClick={() => onSelect?.(exercise)}>
+    <section
+      className={styles.card}
+      onClick={() => {
+        setError?.(null)
+        onSelect?.(exercise)
+      }}
+    >
       <div className={styles.card__info}>
         <h1 className={styles.card__name}>{exercise.name}</h1>
         <p className={styles.card__category}>{exercise.category}</p>

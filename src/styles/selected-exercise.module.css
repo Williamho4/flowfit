@@ -1,3 +1,15 @@
+@keyframes fade-in-from-top {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
 .selected {
   width: 400px;
   height: 180px;
@@ -13,4 +25,9 @@
 .selected__button {
   height: 30px;
   width: 40px;
+}
+
+.selected__error {
+  color: red;
+  animation: fade-in-from-top 0.5s;
 }

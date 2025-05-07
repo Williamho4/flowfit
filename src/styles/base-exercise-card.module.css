@@ -1,3 +1,15 @@
+@keyframes fade-in-from-top {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
 .card {
   background-color: #f9fafb;
   border: solid 1px #e0e0e0;
@@ -9,6 +21,7 @@
   width: 320px;
   height: 100px;
   border-radius: 4px;
+  animation: fade-in-from-top 1s;
 }
 
 .card__info {

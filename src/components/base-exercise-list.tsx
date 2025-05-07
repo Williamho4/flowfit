@@ -8,11 +8,13 @@ import { useState } from 'react'
 type BaseExerciseListProps = {
   baseExercises: BaseExercise[] | undefined
   setSelected: React.Dispatch<React.SetStateAction<BaseExercise | null>>
+  setError: React.Dispatch<React.SetStateAction<string | null>>
 }
 
 export default function BaseExerciseList({
   baseExercises,
   setSelected,
+  setError,
 }: BaseExerciseListProps) {
   const [filteredExercises, setFilteredExercises] = useState(baseExercises)
 
@@ -44,6 +46,7 @@ export default function BaseExerciseList({
           <ul className={styles.list}>
             {filteredExercises?.map((exercise) => (
               <BaseExerciseCard
+                setError={setError}
                 onSelect={setSelected}
                 key={exercise.id}
                 exercise={exercise}
