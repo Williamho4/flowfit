@@ -1,30 +1,34 @@
-'use client'
+"use client";
 
-import styles from '@/styles/workout-planner.module.css'
-import BaseExerciseList from '@/components/base-exercise-list'
-import SelectedExercisesList from '@/components/selected-exercises-list'
-import SelectedExercise from './selected-exercise'
-import { BaseExercise } from '@prisma/client'
-import { useState } from 'react'
+import styles from "@/styles/workout-planner.module.css";
+import BaseExerciseList from "@/components/base-exercise-list";
+import SelectedExercisesList from "@/components/selected-exercises-list";
+import SelectedExercise from "./selected-exercise";
+import { BaseExercise } from "@prisma/client";
+import { useState } from "react";
 
 type WorkoutPlannerProps = {
-  baseExercises: BaseExercise[] | undefined
-}
+  baseExercises: BaseExercise[] | undefined;
+};
 
 export default function WorkoutPlanner({ baseExercises }: WorkoutPlannerProps) {
   const [selectedExercise, setSelectedExercise] = useState<BaseExercise | null>(
     null
-  )
-  const [workout, setWorkout] = useState<BaseExercise[] | []>([])
-  const [error, setError] = useState<string | null>(null)
+  );
+  const [workout, setWorkout] = useState<BaseExercise[] | []>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const handleAddExercise = (exercise: BaseExercise) => {
     if (workout.some((e) => e.id === exercise.id)) {
-      return setError('Exercise already added')
+      return setError("Exercise already added");
     }
 
-    setWorkout((prev) => [...prev, exercise])
-  }
+    setWorkout((prev) => [...prev, exercise]);
+  };
+
+  const handleDeleteExercise = (id: number) => {
+    setWorkout((prev) => prev.filter((exercise) => exercise.id !== id));
+  };
 
   return (
     <div className={styles.dashboard}>
@@ -34,7 +38,10 @@ export default function WorkoutPlanner({ baseExercises }: WorkoutPlannerProps) {
           setSelected={setSelectedExercise}
           setError={setError}
         />
-        <SelectedExercisesList workout={workout} />
+        <SelectedExercisesList
+          workout={workout}
+          handleDelete={(id) => handleDeleteExercise(id)}
+        />
       </div>
       <div className={styles.dashboard__actions}>
         <SelectedExercise
@@ -52,5 +59,5 @@ export default function WorkoutPlanner({ baseExercises }: WorkoutPlannerProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }

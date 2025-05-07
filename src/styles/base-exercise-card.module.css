@@ -21,7 +21,6 @@
   width: 320px;
   height: 100px;
   border-radius: 4px;
-  animation: fade-in-from-top 1s;
 }
 
 .card__info {

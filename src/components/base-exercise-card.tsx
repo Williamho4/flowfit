@@ -1,27 +1,29 @@
-'use client'
+"use client";
 
-import styles from '@/styles/base-exercise-card.module.css'
-import { BaseExercise } from '@prisma/client'
-import Image from 'next/image'
-import image from '../../public/graypic.png'
+import styles from "@/styles/base-exercise-card.module.css";
+import { BaseExercise } from "@prisma/client";
+import Image from "next/image";
+import image from "../../public/graypic.png";
 
 type BaseExerciseCardProps = {
-  exercise: BaseExercise
-  setError?: React.Dispatch<React.SetStateAction<string | null>>
-  onSelect?: (exercise: BaseExercise) => void
-}
+  exercise: BaseExercise;
+  setError?: React.Dispatch<React.SetStateAction<string | null>>;
+  onSelect?: (exercise: BaseExercise) => void;
+  classes?: string;
+};
 
 export default function BaseExerciseCard({
   exercise,
   onSelect,
   setError,
+  classes,
 }: BaseExerciseCardProps) {
   return (
     <section
-      className={styles.card}
+      className={`${styles.card} ${classes}`}
       onClick={() => {
-        setError?.(null)
-        onSelect?.(exercise)
+        setError?.(null);
+        onSelect?.(exercise);
       }}
     >
       <div className={styles.card__info}>
@@ -37,5 +39,5 @@ export default function BaseExerciseCard({
         alt="exercise-pic"
       ></Image>
     </section>
-  )
+  );
 }
