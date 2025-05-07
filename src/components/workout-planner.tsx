@@ -44,7 +44,13 @@ export default function WorkoutPlanner({ baseExercises }: WorkoutPlannerProps) {
           handleAddExercise={handleAddExercise}
           setSelected={setSelectedExercise}
         />
-        <button>Submit Workout</button>
+        <div className={styles.dashboard__form}>
+          <form action="" className={styles.dashboard__inputs}>
+            <input type="text" />
+            <input type="date" />
+            <input type="text" />
+          </form>
+        </div>
       </div>
     </div>
   )
