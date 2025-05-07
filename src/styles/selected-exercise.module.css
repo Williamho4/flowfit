@@ -31,3 +31,7 @@
   color: red;
   animation: fade-in-from-top 0.5s;
 }
+
+.card {
+  animation: fade-in-from-top 0.5s;
+}

@@ -6,21 +6,27 @@ import SelectedExercisesList from "@/components/selected-exercises-list";
 import SelectedExercise from "./selected-exercise";
 import { BaseExercise } from "@prisma/client";
 import { useState } from "react";
+import { UserInfo } from "@/lib/types";
+import CreateWorkoutForm from "./create-workout-form";
 
 type WorkoutPlannerProps = {
   baseExercises: BaseExercise[] | undefined;
+  user: UserInfo;
 };
 
-export default function WorkoutPlanner({ baseExercises }: WorkoutPlannerProps) {
+export default function WorkoutPlanner({
+  baseExercises,
+  user,
+}: WorkoutPlannerProps) {
   const [selectedExercise, setSelectedExercise] = useState<BaseExercise | null>(
     null
   );
   const [workout, setWorkout] = useState<BaseExercise[] | []>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [exerciseError, setExerciseError] = useState<string | null>(null);
 
   const handleAddExercise = (exercise: BaseExercise) => {
     if (workout.some((e) => e.id === exercise.id)) {
-      return setError("Exercise already added");
+      return setExerciseError("Exercise already added");
     }
 
     setWorkout((prev) => [...prev, exercise]);
@@ -36,7 +42,7 @@ export default function WorkoutPlanner({ baseExercises }: WorkoutPlannerProps) {
         <BaseExerciseList
           baseExercises={baseExercises}
           setSelected={setSelectedExercise}
-          setError={setError}
+          setError={setExerciseError}
         />
         <SelectedExercisesList
           workout={workout}
@@ -48,14 +54,14 @@ export default function WorkoutPlanner({ baseExercises }: WorkoutPlannerProps) {
           selectedExercise={selectedExercise}
           handleAddExercise={handleAddExercise}
           setSelected={setSelectedExercise}
-          error={error}
+          error={exerciseError}
         />
         <div className={styles.dashboard__form}>
-          <form action="" className={styles.dashboard__inputs}>
-            <input type="text" />
-            <input type="date" />
-            <input type="text" />
-          </form>
+          <CreateWorkoutForm
+            setWorkout={setWorkout}
+            workout={workout}
+            user={user}
+          />
         </div>
       </div>
     </div>

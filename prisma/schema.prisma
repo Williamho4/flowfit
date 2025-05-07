@@ -25,7 +25,7 @@ model User {
 model Workout {
   id        Int               @id @default(autoincrement())
   title     String
-  createdAt DateTime          @default(now())
+  date DateTime          @default(now())
   user      User              @relation(fields: [userId], references: [id])
   userId    Int
   exercises WorkoutExercise[]
@@ -33,18 +33,18 @@ model Workout {
 
 model WorkoutExercise {
   id           Int                  @id @default(autoincrement())
-  workout      Workout              @relation(fields: [workoutId], references: [id])
+  workout      Workout              @relation(fields: [workoutId], references: [id], onDelete: Cascade)
   workoutId    Int
   baseExercise BaseExercise         @relation(fields: [exerciseId], references: [id])
   exerciseId   Int
-  sets         WorkoutExerciseSet[] // A workout exercise can have multiple sets
+  sets         WorkoutExerciseSet[]
 }
 
 model WorkoutExerciseSet {
-  id                Int             @id @default(autoincrement()) // Primary key for the set
-  workoutExercise   WorkoutExercise @relation(fields: [workoutExerciseId], references: [id]) // Relation to the workout exercise
-  workoutExerciseId Int // Foreign key to WorkoutExercise
-  reps              Int // Number of reps in this set
+  id                Int             @id @default(autoincrement())
+  workoutExercise   WorkoutExercise @relation(fields: [workoutExerciseId], references: [id], onDelete: Cascade)
+  workoutExerciseId Int
+  reps              Int
 }
 
 model BaseExercise {

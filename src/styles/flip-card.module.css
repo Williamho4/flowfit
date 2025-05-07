@@ -1,0 +1,39 @@
+.wrapper {
+  display: inline-block;
+}
+
+.wrapper:hover .card {
+  transform: rotateY(180deg);
+}
+
+.card {
+  width: 320px;
+  height: 100px;
+  position: relative;
+  transform: perspective(1000px);
+  transform-style: preserve-3d;
+  transition: all 0.7s linear;
+}
+
+.back {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  backface-visibility: hidden;
+}
+
+.back {
+  transform: rotateY(180deg);
+  background-color: #f9fafb;
+  border: solid 1px #e0e0e0;
+  color: #263238;
+  padding: 10px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 320px;
+  height: 100px;
+  border-radius: 4px;
+}

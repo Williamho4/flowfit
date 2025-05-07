@@ -1,55 +1,53 @@
-'use client'
+"use client";
 
-import styles from '@/styles/base-exercises-list.module.css'
-import BaseExerciseCard from './base-exercise-card'
-import { BaseExercise } from '@prisma/client'
-import { useState } from 'react'
+import styles from "@/styles/base-exercises-list.module.css";
+import BaseExerciseCard from "./base-exercise-card";
+import { BaseExercise } from "@prisma/client";
+import { useState } from "react";
+import Filter from "./filter";
 
 type BaseExerciseListProps = {
-  baseExercises: BaseExercise[] | undefined
-  setSelected: React.Dispatch<React.SetStateAction<BaseExercise | null>>
-  setError: React.Dispatch<React.SetStateAction<string | null>>
-}
+  baseExercises: BaseExercise[] | undefined;
+  setSelected: React.Dispatch<React.SetStateAction<BaseExercise | null>>;
+  setError: React.Dispatch<React.SetStateAction<string | null>>;
+};
 
 export default function BaseExerciseList({
   baseExercises,
   setSelected,
   setError,
 }: BaseExerciseListProps) {
-  const [filteredExercises, setFilteredExercises] = useState(baseExercises)
+  const [filteredExercises, setFilteredExercises] = useState(baseExercises);
 
-  const handleChange = (e: string) => {
-    if (e === 'All') {
-      return setFilteredExercises(baseExercises)
+  const handleFilterChange = (e: string) => {
+    if (e === "All") {
+      return setFilteredExercises(baseExercises);
     }
 
     setFilteredExercises(
       baseExercises?.filter((exercise) => exercise.category === e)
-    )
-  }
+    );
+  };
+
+  const options = ["All", "Chest", "Legs", "Back", "Triceps", "Biceps"];
 
   return (
     <>
       {baseExercises ? (
         <div className={styles.container}>
-          <select
-            onChange={(e) => handleChange(e.target.value)}
-            className={styles.filter}
-          >
-            <option value="All">All</option>
-            <option value="Chest">Chest</option>
-            <option value="Back">Back</option>
-            <option value="Legs">Legs</option>
-            <option value="Biceps">Biceps</option>
-            <option value="Triceps">Triceps</option>
-          </select>
+          <Filter
+            options={options}
+            handleChange={handleFilterChange}
+            classes={styles.filter}
+          />
           <ul className={styles.list}>
             {filteredExercises?.map((exercise) => (
               <BaseExerciseCard
                 setError={setError}
                 onSelect={setSelected}
-                key={exercise.id}
                 exercise={exercise}
+                key={exercise.id}
+                classes={styles.card}
               />
             ))}
           </ul>
@@ -58,5 +56,5 @@ export default function BaseExerciseList({
         <div>Could not load base exercises</div>
       )}
     </>
-  )
+  );
 }
