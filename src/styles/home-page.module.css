@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  column-gap: 10px;
+  margin: auto;
+}
+
+.container__left {
+  height: auto;
+  max-height: 600px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.container__right {
+  height: 600px;
+}
