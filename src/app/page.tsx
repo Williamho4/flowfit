@@ -15,24 +15,15 @@ export default async function Home() {
 
   console.log(Workout.data?.exercises)
 
-  if (!Workout.data?.exercises) {
-    return null
-  }
-
   return (
-    <>
-      {' '}
-      {Workout && (
-        <div className={styles.container}>
-          <div className={styles.container__left}>
-            <WorkoutList workout={Workout.data.exercises} />
-            <WorkoutList workout={Workout.data.exercises} />
-          </div>
-          <div className={styles.container__right}>
-            <WorkoutList workout={Workout.data.exercises} />
-          </div>
-        </div>
-      )}
-    </>
+    <div className={styles.container}>
+      <div className={styles.container__left}>
+        <WorkoutList workout={Workout.data?.exercises} />
+        <WorkoutList workout={Workout.data?.exercises} />
+      </div>
+      <div className={styles.container__right}>
+        <WorkoutList workout={Workout.data?.exercises} />
+      </div>
+    </div>
   )
 }
