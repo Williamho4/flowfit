@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -25,27 +19,27 @@ model User {
 model Workout {
   id        Int               @id @default(autoincrement())
   title     String
-  date DateTime          @default(now())
-  user      User              @relation(fields: [userId], references: [id])
   userId    Int
+  date      DateTime          @default(now())
+  user      User              @relation(fields: [userId], references: [id])
   exercises WorkoutExercise[]
 }
 
 model WorkoutExercise {
   id           Int                  @id @default(autoincrement())
-  workout      Workout              @relation(fields: [workoutId], references: [id], onDelete: Cascade)
   workoutId    Int
-  baseExercise BaseExercise         @relation(fields: [exerciseId], references: [id])
   exerciseId   Int
+  baseExercise BaseExercise         @relation(fields: [exerciseId], references: [id])
+  workout      Workout              @relation(fields: [workoutId], references: [id], onDelete: Cascade)
   sets         WorkoutExerciseSet[]
 }
 
 model WorkoutExerciseSet {
   id                Int             @id @default(autoincrement())
-  workoutExercise   WorkoutExercise @relation(fields: [workoutExerciseId], references: [id], onDelete: Cascade)
   workoutExerciseId Int
   reps              Int
-  weight Int @default(0)
+  weight            Int             @default(0)
+  workoutExercise   WorkoutExercise @relation(fields: [workoutExerciseId], references: [id], onDelete: Cascade)
 }
 
 model BaseExercise {

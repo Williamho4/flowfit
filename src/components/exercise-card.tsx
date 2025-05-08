@@ -1,17 +1,15 @@
-import Image from "next/image";
-import FlipCard from "./flip-card";
-import styles from "@/styles/exercise-card.module.css";
-import image from "../../public/graypic.png";
-import { Exercise } from "@/lib/types";
-import ExerciseCardBack from "./exercise-card-back";
+import Image from 'next/image'
+import FlipCard from './flip-card'
+import styles from '@/styles/exercise-card.module.css'
+import image from '../../public/graypic.png'
+import { Exercise } from '@/lib/types'
+import ExerciseCardBack from './exercise-card-back'
 
 type ExerciseCardProps = {
-  exercise: Exercise;
-};
+  exercise: Exercise
+}
 
 export default function ExerciseCard({ exercise }: ExerciseCardProps) {
-  console.log(exercise);
-
   return (
     <FlipCard back={<ExerciseCardBack sets={exercise.sets} />}>
       <section className={styles.card}>
@@ -35,5 +33,5 @@ export default function ExerciseCard({ exercise }: ExerciseCardProps) {
         />
       </section>
     </FlipCard>
-  );
+  )
 }
