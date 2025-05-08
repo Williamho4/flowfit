@@ -11,7 +11,7 @@ export default async function Home() {
   if (!session) {
     redirect('/login')
   }
-  const Workout = await getWorkout(session.user.id, 1)
+  const Workout = await getWorkout(session.user.id, 18)
 
   console.log(Workout.data?.exercises)
 

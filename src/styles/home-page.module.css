@@ -12,6 +12,12 @@
   row-gap: 20px;
 }
 
+.container__left > * {
+  max-width: 100%; /* Ensures full width */
+  max-height: 300px; /* Maximum height for all WorkoutList components */
+  overflow-y: auto; /* Scroll if content exceeds max height */
+}
+
 .container__right {
   height: 600px;
 }
