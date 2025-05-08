@@ -1,7 +1,8 @@
 import { getWorkout } from "@/lib/server-utils";
 import { getSession } from "@/lib/session";
 import { redirect } from "next/navigation";
-import WorkoutList from "@/components/workout-list";
+import styles from "@/styles/workout-page.module.css";
+import WorkoutEditor from "@/components/workout-editor";
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -18,12 +19,14 @@ export default async function Page({ params }: PageProps) {
   const res = await getWorkout(session.user.id, Number(id));
 
   return (
-    <>
+    <div className={styles.container}>
       {res.data ? (
-        <WorkoutList workout={res.data.exercises}></WorkoutList>
+        <>
+          <WorkoutEditor workout={res.data.exercises} />
+        </>
       ) : (
         <div>Cant fint workout</div>
       )}
-    </>
+    </div>
   );
 }

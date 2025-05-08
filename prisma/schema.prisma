@@ -37,7 +37,7 @@ model WorkoutExercise {
 model WorkoutExerciseSet {
   id                Int             @id @default(autoincrement())
   workoutExerciseId Int
-  reps              Int
+  reps              Int             @default(0)
   weight            Int             @default(0)
   workoutExercise   WorkoutExercise @relation(fields: [workoutExerciseId], references: [id], onDelete: Cascade)
 }

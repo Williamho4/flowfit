@@ -101,3 +101,16 @@ export async function createWorkout(
     },
   });
 }
+
+export async function createSet(workoutExerciseId: number) {
+  try {
+    await prisma.workoutExerciseSet.create({
+      data: {
+        workoutExerciseId,
+      },
+    });
+  } catch (error) {
+    console.error("Error creating set:", error);
+    throw new Error("Failed to create workout set");
+  }
+}
