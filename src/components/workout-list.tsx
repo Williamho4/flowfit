@@ -1,11 +1,11 @@
-import styles from "@/styles/workout-list.module.css";
-import ExerciseCard from "./exercise-card";
-import { Exercise } from "../lib/types";
+import styles from '@/styles/workout-list.module.css'
+import ExerciseCard from './exercise-card'
+import { Exercise } from '../lib/types'
 
 type WorkoutListProps = {
-  workout: Exercise[] | undefined;
-  handleClick: (exercise: Exercise) => void;
-};
+  workout: Exercise[] | undefined
+  handleClick: (exercise: Exercise) => void
+}
 
 export default function WorkoutList({
   workout,
@@ -15,13 +15,9 @@ export default function WorkoutList({
     <div className={styles.container}>
       <ul className={styles.list}>
         {workout?.map((exercise) => (
-          <ExerciseCard
-            handleClick={handleClick}
-            key={exercise.id}
-            exercise={exercise}
-          />
+          <ExerciseCard handleClick={handleClick} exercise={exercise} />
         ))}
       </ul>
     </div>
-  );
+  )
 }

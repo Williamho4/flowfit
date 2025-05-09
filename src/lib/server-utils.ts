@@ -103,6 +103,21 @@ export async function createWorkout(
   })
 }
 
+export async function getAllWorkoutTitles(userId: number) {
+  const workouts = await prisma.workout.findMany({
+    where: {
+      userId,
+    },
+    select: {
+      title: true,
+      date: true,
+      id: true,
+    },
+  })
+
+  return workouts
+}
+
 export async function createSet(
   workoutExerciseId: number,
   reps: number,

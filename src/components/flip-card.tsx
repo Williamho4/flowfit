@@ -1,10 +1,10 @@
-import styles from "@/styles/flip-card.module.css";
-import { ReactNode } from "react";
+import styles from '@/styles/flip-card.module.css'
+import { ReactNode } from 'react'
 
 type FlipCardProps = {
-  children: ReactNode;
-  back: ReactNode;
-};
+  children: ReactNode
+  back: ReactNode
+}
 
 export default function FlipCard({ children, back }: FlipCardProps) {
   return (
@@ -14,5 +14,5 @@ export default function FlipCard({ children, back }: FlipCardProps) {
         <div className={styles.back}>{back}</div>
       </div>
     </div>
-  );
+  )
 }

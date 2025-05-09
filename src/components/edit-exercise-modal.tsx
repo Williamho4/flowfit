@@ -54,6 +54,7 @@ export default function EditExerciseModal({
       )
     })
 
+    setTotalSets([])
     onClose()
   }
 
@@ -115,11 +116,12 @@ export default function EditExerciseModal({
           {step === 2 && (
             <>
               {totalSets.map((set, index) => (
-                <div className={styles.set__container}>
+                <div className={styles.set__container} key={index}>
                   <label>Set {index + 1}</label>
-                  <form key={index} className={styles.sets}>
+                  <form className={styles.sets}>
                     <label>Reps</label>
                     <input
+                      min="0"
                       type="number"
                       name="reps"
                       value={set.reps}
@@ -129,6 +131,7 @@ export default function EditExerciseModal({
                     />
                     <label>Weight</label>
                     <input
+                      min="0"
                       type="number"
                       name="weight"
                       value={set.weight}
