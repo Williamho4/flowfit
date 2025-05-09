@@ -16,8 +16,8 @@ export default async function Home() {
       {workoutTitles.length > 0 && (
         <ul>
           {workoutTitles.map((workout) => (
-            <Link href={`/workout/${workout.id}`}>
-              <li key={workout.id}>
+            <Link key={workout.id} href={`/workout/${workout.id}`}>
+              <li>
                 {workout.title} Date{' '}
                 {new Date(workout.date).toLocaleDateString()}
               </li>

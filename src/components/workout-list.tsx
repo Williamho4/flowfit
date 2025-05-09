@@ -15,7 +15,11 @@ export default function WorkoutList({
     <div className={styles.container}>
       <ul className={styles.list}>
         {workout?.map((exercise) => (
-          <ExerciseCard handleClick={handleClick} exercise={exercise} />
+          <ExerciseCard
+            key={exercise.id}
+            handleClick={handleClick}
+            exercise={exercise}
+          />
         ))}
       </ul>
     </div>
