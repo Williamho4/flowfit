@@ -36,11 +36,7 @@ export default function TodaysWorkoutList({
                 <h2>{workout.title}</h2>
                 <ul className={styles.list}>
                   {workout.exercises.map((exercise) => (
-                    <ExerciseCard
-                      handleClick={setSelectedExercise}
-                      key={exercise.id}
-                      exercise={exercise}
-                    />
+                    <ExerciseCard key={exercise.id} exercise={exercise} />
                   ))}
                 </ul>
               </div>

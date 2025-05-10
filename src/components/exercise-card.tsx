@@ -5,7 +5,7 @@ import { Exercise } from "@/lib/types";
 
 type ExerciseCardProps = {
   exercise: Exercise;
-  handleClick: (exercise: Exercise) => void;
+  handleClick?: (exercise: Exercise) => void;
 };
 
 export default function ExerciseCard({
@@ -13,7 +13,10 @@ export default function ExerciseCard({
   handleClick,
 }: ExerciseCardProps) {
   return (
-    <section onClick={() => handleClick(exercise)} className={styles.card}>
+    <section
+      onClick={() => handleClick && handleClick(exercise)}
+      className={styles.card}
+    >
       <div className={styles.card__info}>
         <h1 className={styles.card__name}>{exercise.baseExercise.name}</h1>
         <p className={styles.card__category}>
