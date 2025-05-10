@@ -1,10 +1,10 @@
-import { Set } from '@/lib/types'
-import styles from '@/styles/exercise-card-back.module.css'
+import { Set } from "@/lib/types";
+import styles from "@/styles/exercise-card-back.module.css";
 
 type ExerciseCardBackProps = {
-  sets: Set[] | undefined
-}
+  sets: Set[] | undefined;
+};
 
-export default function ExerciseCardBack({ sets }: ExerciseCardBackProps) {
-  return <section className={styles.card}>hello</section>
+export default function ExerciseCardBack({}: ExerciseCardBackProps) {
+  return <section className={styles.card}>hello</section>;
 }

@@ -14,7 +14,7 @@ export type Payload = {
 export type Workout = {
   id: number;
   title: string;
-  createdAt: Date;
+  date: Date;
   userId: number;
   exercises: Exercise[];
 };
