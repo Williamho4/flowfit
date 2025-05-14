@@ -19,6 +19,8 @@ export default function WorkoutEditor({ workout }: WorkoutEditorProps) {
     setSelectedExercise(null)
   }
 
+  console.log(workout)
+
   return (
     <div className={styles.container}>
       <WorkoutList

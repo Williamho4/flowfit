@@ -1,6 +1,21 @@
 .container {
-  display: flex;
-  height: 80vh;
-  justify-content: center;
+  display: grid;
+  margin: auto;
   align-items: center;
+  grid-template-columns: 380px 320px;
+  gap: 2vw;
+}
+
+@media screen and (max-width: 730px) {
+  .container {
+    margin: 2vh auto;
+    grid-template-columns: 380px;
+  }
+}
+
+@media screen and (max-width: 389px) {
+  .container {
+    margin: 2vh auto;
+    grid-template-columns: 90vw;
+  }
 }

@@ -1,19 +1,19 @@
-"use server";
+'use server'
 
-import { redirect } from "next/navigation";
-import { comparePassword, hashPassword } from "./auth-utils";
-import prisma from "./db";
-import { createSession } from "./session";
-import { ServerResponse } from "./types";
-import { BaseExercise } from "@prisma/client";
-import { revalidatePath } from "next/cache";
+import { redirect } from 'next/navigation'
+import { comparePassword, hashPassword } from './auth-utils'
+import prisma from './db'
+import { createSession, deleteSession } from './session'
+import { ServerResponse } from './types'
+import { BaseExercise } from '@prisma/client'
+import { revalidatePath } from 'next/cache'
 
 export async function createUser(
   username: string,
   email: string,
   password: string
 ) {
-  const hashedPassword = await hashPassword(password);
+  const hashedPassword = await hashPassword(password)
 
   const user = await prisma.user.create({
     data: {
@@ -21,32 +21,37 @@ export async function createUser(
       email,
       password: hashedPassword,
     },
-  });
+  })
 
-  return user;
+  return user
 }
 
 export async function loginUser(email: string, password: string) {
   const user = await prisma.user.findUnique({
     where: { email },
-  });
+  })
   if (!user) {
-    return { ok: false, message: "Invalid credentials" };
+    return { ok: false, message: 'Invalid credentials' }
   }
 
-  const isValid = await comparePassword(password, user.password);
+  const isValid = await comparePassword(password, user.password)
   if (!isValid) {
-    return { ok: false, message: "Invalid credentials" };
+    return { ok: false, message: 'Invalid credentials' }
   }
 
-  await createSession(user);
+  await createSession(user)
 
-  redirect("/");
+  redirect('/')
+}
+
+export async function logout() {
+  await deleteSession()
+  redirect('/login')
 }
 
 export async function getWorkout(userId: number, workoutId: number) {
   if (!workoutId) {
-    return redirect("/");
+    return redirect('/')
   }
 
   const workout = await prisma.workout.findUnique({
@@ -59,22 +64,22 @@ export async function getWorkout(userId: number, workoutId: number) {
         },
       },
     },
-  });
+  })
 
   if (!workout) {
-    return { ok: false, message: "No workout found" };
+    return { ok: false, message: 'No workout found' }
   }
 
-  return { ok: true, data: workout };
+  return { ok: true, data: workout }
 }
 
 export async function getTodaysWorkouts(userId: number) {
-  const now = new Date();
-  const year = now.getUTCFullYear();
-  const month = now.getUTCMonth();
-  const day = now.getUTCDate();
+  const now = new Date()
+  const year = now.getUTCFullYear()
+  const month = now.getUTCMonth()
+  const day = now.getUTCDate()
 
-  const date = new Date(Date.UTC(year, month, day, 0, 0, 0));
+  const date = new Date(Date.UTC(year, month, day, 0, 0, 0))
 
   const workout = await prisma.workout.findMany({
     where: {
@@ -89,25 +94,25 @@ export async function getTodaysWorkouts(userId: number) {
         },
       },
     },
-  });
+  })
 
   if (workout.length <= 0) {
-    return { ok: false, message: "No workout found" };
+    return { ok: false, message: 'No workout found' }
   }
 
-  return { ok: true, data: workout };
+  return { ok: true, data: workout }
 }
 
 export async function getBaseExercises(): Promise<
   ServerResponse<BaseExercise[]>
 > {
-  const exercises = await prisma.baseExercise.findMany();
+  const exercises = await prisma.baseExercise.findMany()
 
   if (exercises.length === 0) {
-    return { ok: false, message: "Could not get exercises" };
+    return { ok: false, message: 'Could not get exercises' }
   }
 
-  return { ok: true, data: exercises };
+  return { ok: true, data: exercises }
 }
 
 export async function createWorkout(
@@ -116,7 +121,7 @@ export async function createWorkout(
   userId: number,
   exercises: BaseExercise[]
 ) {
-  console.log(date);
+  console.log(date)
 
   await prisma.workout.create({
     data: {
@@ -132,7 +137,7 @@ export async function createWorkout(
         })),
       },
     },
-  });
+  })
 }
 
 export async function getAllWorkoutTitles(userId: number) {
@@ -141,16 +146,16 @@ export async function getAllWorkoutTitles(userId: number) {
       userId,
     },
     orderBy: {
-      date: "asc",
+      date: 'asc',
     },
     select: {
       title: true,
       date: true,
       id: true,
     },
-  });
+  })
 
-  return workouts;
+  return workouts
 }
 
 export async function createSet(
@@ -166,10 +171,10 @@ export async function createSet(
         weight,
         workoutExerciseId,
       },
-    });
-    revalidatePath(`/workout/${workoutId}`);
+    })
+    revalidatePath(`/workout/${workoutId}`)
   } catch (error) {
-    console.error("Error creating set:", error);
-    throw new Error("Failed to create workout set");
+    console.error('Error creating set:', error)
+    throw new Error('Failed to create workout set')
   }
 }
