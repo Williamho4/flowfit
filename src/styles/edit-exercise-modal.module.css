@@ -45,6 +45,14 @@
   font-size: 30px;
 }
 
+.sets__list {
+  background-color: rgb(238, 238, 253);
+  margin: 1vh 0;
+  max-height: 20vh;
+  overflow: auto;
+  padding: 5px;
+}
+
 .set__container {
   display: flex;
   flex-direction: column;
@@ -55,7 +63,7 @@
 
 .sets {
   display: flex;
-  column-gap: 10px;
+  flex-direction: column;
 }
 
 @media screen and (max-width: 520px) {

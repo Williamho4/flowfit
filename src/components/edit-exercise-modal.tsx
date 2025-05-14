@@ -115,33 +115,35 @@ export default function EditExerciseModal({
           )}
           {step === 2 && (
             <>
-              {totalSets.map((set, index) => (
-                <div className={styles.set__container} key={index}>
-                  <label>Set {index + 1}</label>
-                  <form className={styles.sets}>
-                    <label>Reps</label>
-                    <input
-                      min="0"
-                      type="number"
-                      name="reps"
-                      value={set.reps}
-                      onChange={(e) =>
-                        handleChange(index, 'reps', Number(e.target.value))
-                      }
-                    />
-                    <label>Weight</label>
-                    <input
-                      min="0"
-                      type="number"
-                      name="weight"
-                      value={set.weight}
-                      onChange={(e) =>
-                        handleChange(index, 'weight', Number(e.target.value))
-                      }
-                    />
-                  </form>
-                </div>
-              ))}
+              <section className={styles.sets__list}>
+                {totalSets.map((set, index) => (
+                  <div className={styles.set__container} key={index}>
+                    <label>Set {index + 1}</label>
+                    <form className={styles.sets}>
+                      <label>Reps</label>
+                      <input
+                        min="0"
+                        type="number"
+                        name="reps"
+                        value={set.reps}
+                        onChange={(e) =>
+                          handleChange(index, 'reps', Number(e.target.value))
+                        }
+                      />
+                      <label>Weight</label>
+                      <input
+                        min="0"
+                        type="number"
+                        name="weight"
+                        value={set.weight}
+                        onChange={(e) =>
+                          handleChange(index, 'weight', Number(e.target.value))
+                        }
+                      />
+                    </form>
+                  </div>
+                ))}
+              </section>
               <button onClick={confirmSets}>Confirm Sets</button>
             </>
           )}
