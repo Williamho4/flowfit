@@ -13,9 +13,9 @@
   }
 }
 
-@media screen and (max-width: 389px) {
+@media screen and (max-width: 410px) {
   .container {
     margin: 2vh auto;
-    grid-template-columns: 90vw;
+    grid-template-columns: 95vw;
   }
 }
