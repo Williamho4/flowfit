@@ -22,6 +22,10 @@
   padding: 40px 0;
 }
 
+.main h1 {
+  text-align: center;
+}
+
 .display-block {
   display: block;
 }
@@ -52,4 +56,10 @@
 .sets {
   display: flex;
   column-gap: 10px;
+}
+
+@media screen and (max-width: 520px) {
+  .main {
+    width: 90vw;
+  }
 }

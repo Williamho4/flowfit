@@ -1,33 +1,35 @@
-"use client";
+'use client'
 
-import { Exercise } from "@/lib/types";
-import EditExerciseModal from "./edit-exercise-modal";
-import WorkoutList from "./workout-list";
-import { useState } from "react";
+import styles from '@/styles/workout-editor.module.css'
+import { Exercise } from '@/lib/types'
+import EditExerciseModal from './edit-exercise-modal'
+import WorkoutList from './workout-list'
+import { useState } from 'react'
 
 type WorkoutEditorProps = {
-  workout: Exercise[] | undefined;
-};
+  workout: Exercise[] | undefined
+}
 
 export default function WorkoutEditor({ workout }: WorkoutEditorProps) {
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(
     null
-  );
+  )
 
   function toggleModal() {
-    setSelectedExercise(null);
+    setSelectedExercise(null)
   }
 
   return (
-    <div>
-      <EditExerciseModal
-        selectedExercise={selectedExercise}
-        onClose={toggleModal}
-      ></EditExerciseModal>
+    <div className={styles.container}>
       <WorkoutList
         workout={workout}
         handleClick={setSelectedExercise}
       ></WorkoutList>
+
+      <EditExerciseModal
+        selectedExercise={selectedExercise}
+        onClose={toggleModal}
+      ></EditExerciseModal>
     </div>
-  );
+  )
 }
