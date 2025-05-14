@@ -17,7 +17,7 @@ export async function createUser(
 
   const user = await prisma.user.create({
     data: {
-      username,
+      username: username.toLowerCase(),
       email,
       password: hashedPassword,
     },
@@ -28,7 +28,7 @@ export async function createUser(
 
 export async function loginUser(email: string, password: string) {
   const user = await prisma.user.findUnique({
-    where: { email },
+    where: { email: email.toLowerCase() },
   })
   if (!user) {
     return { ok: false, message: 'Invalid credentials' }
