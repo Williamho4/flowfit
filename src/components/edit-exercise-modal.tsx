@@ -123,7 +123,6 @@ export default function EditExerciseModal({
                       <input
                         type="number"
                         name="reps"
-                        value={set.reps}
                         onChange={(e) =>
                           handleChange(index, 'reps', Number(e.target.value))
                         }
@@ -132,7 +131,6 @@ export default function EditExerciseModal({
                       <input
                         type="number"
                         name="weight"
-                        value={set.weight}
                         onChange={(e) =>
                           handleChange(index, 'weight', Number(e.target.value))
                         }
