@@ -18,21 +18,30 @@ export default async function Page({ params }: PageProps) {
   }
 
   const res = await getWorkout(session.user.id, Number(id))
-  const totalSets = res.data?.exercises.reduce((acc, workout) => {
-    return acc + workout.sets.length
+
+  const totalSets = res.data?.exercises.reduce((acc, exercise) => {
+    return acc + exercise.sets.length
   }, 0)
-  const totalReps = res.data?.exercises.reduce((acc, workout) => {
-    const setReps = workout.sets.reduce((acc, set) => {
+
+  const totalReps = res.data?.exercises.reduce((acc, exercise) => {
+    const setReps = exercise.sets.reduce((acc, set) => {
       return acc + set.reps
     }, 0)
     return acc + setReps
   }, 0)
-  const totalWeightLifted = res.data?.exercises.reduce((acc, workout) => {
-    const setWeight = workout.sets.reduce((acc, set) => {
+
+  const totalWeightLifted = res.data?.exercises.reduce((acc, exercise) => {
+    const setWeight = exercise.sets.reduce((acc, set) => {
       return acc + set.reps * set.weight
     }, 0)
 
     return acc + setWeight
+  }, 0)
+
+  const doneExercises = res.data?.exercises.reduce((acc, exercise) => {
+    if (exercise.sets.length > 0) {
+      return acc + 1
+    } else return acc
   }, 0)
 
   return (
@@ -44,6 +53,8 @@ export default async function Page({ params }: PageProps) {
             totalSets={totalSets}
             totalReps={totalReps}
             totalWeightLifted={totalWeightLifted}
+            value={doneExercises ? doneExercises : 0}
+            maxValue={res.data.exercises.length ? res.data.exercises.length : 0}
           />
         </div>
       ) : (
