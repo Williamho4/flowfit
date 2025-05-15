@@ -99,7 +99,6 @@ export default function EditExerciseModal({
             <>
               <label>How many sets</label>
               <input
-                min="1"
                 max="5"
                 type="number"
                 onChange={(e) => {
@@ -122,7 +121,6 @@ export default function EditExerciseModal({
                     <form className={styles.sets}>
                       <label>Reps</label>
                       <input
-                        min="0"
                         type="number"
                         name="reps"
                         value={set.reps}
@@ -132,7 +130,6 @@ export default function EditExerciseModal({
                       />
                       <label>Weight</label>
                       <input
-                        min="0"
                         type="number"
                         name="weight"
                         value={set.weight}
