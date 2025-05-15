@@ -13,7 +13,7 @@ export default function ProgressBar({ value, maxValue }: ProgressBarProps) {
     <CircularProgressbar
       value={value}
       maxValue={maxValue}
-      text={`${(value / maxValue) * 100}%`}
+      text={`${Math.round((value / maxValue) * 100)}%`}
       styles={buildStyles({
         pathColor: '#1565c0',
         textColor: '#1565c0',
