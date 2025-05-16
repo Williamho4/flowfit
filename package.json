@@ -20,6 +20,7 @@
     "clsx": "^2.1.1",
     "jose": "^6.0.10",
     "next": "15.3.1",
+    "openai": "^4.98.0",
     "react": "^19.0.0",
     "react-circular-progressbar": "^2.2.0",
     "react-dom": "^19.0.0",

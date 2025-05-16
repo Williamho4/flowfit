@@ -7,6 +7,7 @@ type StatsProps = {
   totalWeightLifted: number | undefined
   value: number
   maxValue: number
+  caloriesBurnt: string | null
 }
 
 export default function Stats({
@@ -15,10 +16,12 @@ export default function Stats({
   totalWeightLifted,
   value,
   maxValue,
+  caloriesBurnt,
 }: StatsProps) {
   return (
     <section className={styles.container}>
       <div className={styles.info}>
+        <p>{`Total Estimated Calories Burnt: ${caloriesBurnt}`}</p>
         <p>{`Total sets done this workout: ${totalSets}`}</p>
         <p>{`Total reps done this workout: ${totalReps}`}</p>
         <p>{`Total weight lifted this workout: ${totalWeightLifted}`}</p>

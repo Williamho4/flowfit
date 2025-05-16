@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation'
 import styles from '@/styles/workout-page.module.css'
 import WorkoutEditor from '@/components/workout/id/workout-editor'
 import Stats from '@/components/ui/stats'
+import { calculateCaloriesBurnt } from '@/lib/ai-utils'
 
 type PageProps = {
   params: Promise<{ id: string }>
@@ -18,6 +19,17 @@ export default async function Page({ params }: PageProps) {
   }
 
   const res = await getWorkout(session.user.id, Number(id))
+
+  if (!res.data) {
+    return redirect('/')
+  }
+
+  const { exercises } = res.data
+  const exerciseNameAndSets = exercises.map((exercise) => ({
+    name: exercise.baseExercise.name,
+    sets: exercise.sets.map((set) => ({ reps: set.reps, weight: set.weight })),
+  }))
+  const caloriesBurnt = await calculateCaloriesBurnt(exerciseNameAndSets)
 
   const totalSets = res.data?.exercises.reduce((acc, exercise) => {
     return acc + exercise.sets.length
@@ -50,6 +62,7 @@ export default async function Page({ params }: PageProps) {
         <div className={styles.container}>
           <WorkoutEditor workout={res.data.exercises} />
           <Stats
+            caloriesBurnt={caloriesBurnt}
             totalSets={totalSets}
             totalReps={totalReps}
             totalWeightLifted={totalWeightLifted}
