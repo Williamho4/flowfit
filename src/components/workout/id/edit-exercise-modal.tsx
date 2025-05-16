@@ -151,7 +151,8 @@ export default function EditExerciseModal({
           {!addSetActive && !editActive && (
             <button
               onClick={() => {
-                setAddSetActive(true), setEditActive(false)
+                setAddSetActive(true)
+                setEditActive(false)
               }}
               className={styles['add-button']}
             >
