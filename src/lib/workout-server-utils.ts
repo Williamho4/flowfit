@@ -1,23 +1,23 @@
-'use server'
+"use server";
 
-import { revalidatePath } from 'next/cache'
-import prisma from './db'
-import { redirect } from 'next/navigation'
-import { BaseExercise } from '@prisma/client'
-import { ServerResponse } from './types'
+import { revalidatePath } from "next/cache";
+import prisma from "./db";
+import { redirect } from "next/navigation";
+import { BaseExercise } from "@prisma/client";
+import { ServerResponse } from "./types";
 
 //Base Exercises
 
 export async function getBaseExercises(): Promise<
   ServerResponse<BaseExercise[]>
 > {
-  const exercises = await prisma.baseExercise.findMany()
+  const exercises = await prisma.baseExercise.findMany();
 
   if (exercises.length === 0) {
-    return { ok: false, message: 'Could not get exercises' }
+    return { ok: false, message: "Could not get exercises" };
   }
 
-  return { ok: true, data: exercises }
+  return { ok: true, data: exercises };
 }
 
 //Workouts
@@ -42,12 +42,14 @@ export async function createWorkout(
         })),
       },
     },
-  })
+  });
+
+  revalidatePath("/");
 }
 
 export async function getWorkout(userId: number, workoutId: number) {
   if (!workoutId) {
-    return redirect('/')
+    return redirect("/");
   }
 
   const workout = await prisma.workout.findUnique({
@@ -60,13 +62,13 @@ export async function getWorkout(userId: number, workoutId: number) {
         },
       },
     },
-  })
+  });
 
   if (!workout) {
-    return { ok: false, message: 'No workout found' }
+    return { ok: false, message: "No workout found" };
   }
 
-  return { ok: true, data: workout }
+  return { ok: true, data: workout };
 }
 
 export async function getAllWorkoutTitles(userId: number) {
@@ -75,25 +77,25 @@ export async function getAllWorkoutTitles(userId: number) {
       userId,
     },
     orderBy: {
-      date: 'asc',
+      date: "asc",
     },
     select: {
       title: true,
       date: true,
       id: true,
     },
-  })
+  });
 
-  return workouts
+  return workouts;
 }
 
 export async function getTodaysWorkouts(userId: number) {
-  const now = new Date()
-  const year = now.getUTCFullYear()
-  const month = now.getUTCMonth()
-  const day = now.getUTCDate()
+  const now = new Date();
+  const year = now.getUTCFullYear();
+  const month = now.getUTCMonth();
+  const day = now.getUTCDate();
 
-  const date = new Date(Date.UTC(year, month, day, 0, 0, 0))
+  const date = new Date(Date.UTC(year, month, day, 0, 0, 0));
 
   const workout = await prisma.workout.findMany({
     where: {
@@ -108,13 +110,13 @@ export async function getTodaysWorkouts(userId: number) {
         },
       },
     },
-  })
+  });
 
   if (workout.length <= 0) {
-    return { ok: false, message: 'No workout found' }
+    return { ok: false, message: "No workout found" };
   }
 
-  return { ok: true, data: workout }
+  return { ok: true, data: workout };
 }
 
 //SETS
@@ -132,11 +134,11 @@ export async function createSet(
         weight,
         workoutExerciseId,
       },
-    })
-    revalidatePath(`/workout/${workoutId}`)
+    });
+    revalidatePath(`/workout/${workoutId}`);
   } catch (error) {
-    console.error('Error creating set:', error)
-    throw new Error('Failed to create workout set')
+    console.error("Error creating set:", error);
+    throw new Error("Failed to create workout set");
   }
 }
 
@@ -146,11 +148,11 @@ export async function deleteSet(setId: number, workoutId: number) {
       where: {
         id: setId,
       },
-    })
-    revalidatePath(`/workout/${workoutId}`)
+    });
+    revalidatePath(`/workout/${workoutId}`);
   } catch (error) {
-    console.error('Error deleting set:', error)
-    throw new Error('Failed to delete set')
+    console.error("Error deleting set:", error);
+    throw new Error("Failed to delete set");
   }
 }
 
@@ -169,10 +171,10 @@ export async function editSet(
         reps,
         weight,
       },
-    })
-    revalidatePath(`/workout/${workoutId}`)
+    });
+    revalidatePath(`/workout/${workoutId}`);
   } catch (error) {
-    console.error('Error updating set:', error)
-    throw new Error('Failed to update set')
+    console.error("Error updating set:", error);
+    throw new Error("Failed to update set");
   }
 }
