@@ -1,6 +1,6 @@
 import styles from '@/styles/selected-exercise.module.css'
-import BaseExerciseCard from './base-exercise-card'
 import { BaseExercise } from '@prisma/client'
+import BaseExerciseCard from '../shared/base-exercise-card'
 
 type SelecetedExerciseProps = {
   selectedExercise: BaseExercise | null

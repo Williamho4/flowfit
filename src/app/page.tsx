@@ -1,9 +1,12 @@
-import { getAllWorkoutTitles, getTodaysWorkouts } from '@/lib/server-utils'
 import { getSession } from '@/lib/session'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import styles from '@/styles/home-page.module.css'
 import TodaysWorkoutList from '@/components/todays-workout-list'
+import {
+  getAllWorkoutTitles,
+  getTodaysWorkouts,
+} from '@/lib/workout-server-utils'
 
 export default async function Home() {
   const session = await getSession()

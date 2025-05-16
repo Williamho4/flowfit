@@ -1,24 +1,24 @@
-"use client";
+'use client'
 
-import { Exercise, Workout } from "@/lib/types";
-import ExerciseCard from "./exercise-card";
-import styles from "@/styles/todays-workout-list.module.css";
-import { useState } from "react";
-import EditExerciseModal from "./edit-exercise-modal";
+import { Exercise, Workout } from '@/lib/types'
+import ExerciseCard from './workout/id/exercise-card'
+import styles from '@/styles/todays-workout-list.module.css'
+import { useState } from 'react'
+import EditExerciseModal from './workout/id/edit-exercise-modal'
 
 type TodaysWorkoutListProps = {
-  workouts: Workout[] | undefined;
-};
+  workouts: Workout[] | undefined
+}
 
 export default function TodaysWorkoutList({
   workouts,
 }: TodaysWorkoutListProps) {
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(
     null
-  );
+  )
 
   function toggleModal() {
-    setSelectedExercise(null);
+    setSelectedExercise(null)
   }
 
   return (
@@ -47,5 +47,5 @@ export default function TodaysWorkoutList({
         )}
       </div>
     </div>
-  );
+  )
 }

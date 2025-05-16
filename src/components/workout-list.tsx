@@ -1,5 +1,5 @@
 import styles from '@/styles/workout-list.module.css'
-import ExerciseCard from './exercise-card'
+import ExerciseCard from './workout/id/exercise-card'
 import { Exercise } from '../lib/types'
 
 type WorkoutListProps = {

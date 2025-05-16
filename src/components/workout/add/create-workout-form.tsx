@@ -1,4 +1,4 @@
-import { createWorkout } from '@/lib/server-utils'
+import { createWorkout } from '@/lib/workout-server-utils'
 import { BaseExercise } from '@prisma/client'
 import { useForm } from 'react-hook-form'
 import styles from '@/styles/create-workout-form.module.css'

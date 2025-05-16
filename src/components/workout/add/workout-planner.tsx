@@ -1,13 +1,14 @@
 'use client'
 
 import styles from '@/styles/workout-planner.module.css'
-import BaseExerciseList from '@/components/base-exercise-list'
-import SelectedExercisesList from '@/components/selected-exercises-list'
-import SelectedExercise from './selected-exercise'
+import BaseExerciseList from '@/components/workout/add/base-exercise-list'
+
 import { BaseExercise } from '@prisma/client'
 import { useState } from 'react'
 import { UserInfo } from '@/lib/types'
 import CreateWorkoutForm from './create-workout-form'
+import SelectedExercisesList from './selected-exercises-list'
+import SelectedExercise from './selected-exercise'
 
 type WorkoutPlannerProps = {
   baseExercises: BaseExercise[] | undefined

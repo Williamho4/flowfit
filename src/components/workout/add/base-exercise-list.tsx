@@ -1,10 +1,10 @@
 'use client'
 
 import styles from '@/styles/base-exercises-list.module.css'
-import BaseExerciseCard from './base-exercise-card'
+import BaseExerciseCard from '../shared/base-exercise-card'
 import { BaseExercise } from '@prisma/client'
 import { useState } from 'react'
-import Filter from './filter'
+import Filter from '../../ui/filter'
 import { muscleFilter } from '@/lib/constants'
 
 type BaseExerciseListProps = {

@@ -1,12 +1,12 @@
-import Image from "next/image";
-import styles from "@/styles/exercise-card.module.css";
-import image from "../../public/graypic.png";
-import { Exercise } from "@/lib/types";
+import Image from 'next/image'
+import styles from '@/styles/exercise-card.module.css'
+import image from '@/../public/graypic.png'
+import { Exercise } from '@/lib/types'
 
 type ExerciseCardProps = {
-  exercise: Exercise;
-  handleClick?: (exercise: Exercise) => void;
-};
+  exercise: Exercise
+  handleClick?: (exercise: Exercise) => void
+}
 
 export default function ExerciseCard({
   exercise,
@@ -34,5 +34,5 @@ export default function ExerciseCard({
         alt="exercise-pic"
       />
     </section>
-  );
+  )
 }

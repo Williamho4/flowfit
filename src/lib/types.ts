@@ -28,11 +28,14 @@ export type Exercise = {
 }
 
 export type InputSet = {
+  id: number
   reps: number
   weight: number
 }
 
 export type Set = WorkoutExerciseSet & {}
+
+export type ComparableSet = Omit<Set, 'workoutExerciseId'>
 
 export type ServerResponse<T> = {
   ok: boolean
