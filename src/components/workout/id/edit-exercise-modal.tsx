@@ -64,10 +64,6 @@ export default function EditExerciseModal({
   }
 
   async function handleDeleteSet(setId: number, workoutId: number) {
-    if (!confirm('Are you sure')) {
-      return
-    }
-
     try {
       await deleteSet(setId, workoutId)
       onClose()
