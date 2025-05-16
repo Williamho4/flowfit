@@ -8,7 +8,7 @@ export async function calculateCaloriesBurnt(data: unknown) {
   const workoutString = JSON.stringify(data, null, 2)
 
   const response = await openai.chat.completions.create({
-    model: 'gpt-4',
+    model: 'gpt-4o-mini',
     messages: [
       {
         role: 'system',
