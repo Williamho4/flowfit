@@ -45,25 +45,49 @@
   font-size: 30px;
 }
 
-.sets__list {
-  background-color: rgb(238, 238, 253);
-  margin: 1vh 0;
-  max-height: 20vh;
-  overflow: auto;
-  padding: 5px;
-}
-
-.set__container {
+.stats-list {
   display: flex;
   flex-direction: column;
+  gap: 1vh;
+}
+
+.stats-container {
+  background-color: #1565c0;
+  color: white;
+  padding: 1vw;
+  border-radius: 10px;
+  display: flex;
+  gap: 1vw;
   align-items: center;
-  row-gap: 4px;
-  margin: 3px;
 }
 
-.sets {
+.edit-button {
+  padding: 5px;
+  border-radius: 10%;
+  border: none;
+  background-color: rgb(17, 24, 63);
+  text-transform: capitalize;
+  color: #fff;
+}
+
+.delete-button {
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 30px;
+  color: red;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+}
+
+.add-button {
+  margin-top: 3vh;
+  padding: 5px;
+  border-radius: 10%;
+  border: none;
+  background-color: green;
+  color: #fff;
 }
 
 @media screen and (max-width: 520px) {

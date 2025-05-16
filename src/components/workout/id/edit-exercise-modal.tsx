@@ -7,6 +7,7 @@ import image from '@/../public/graypic.png'
 import { useState } from 'react'
 import { IoIosClose } from 'react-icons/io'
 import { createSet, deleteSet, editSet } from '@/lib/workout-server-utils'
+import SetForm from './set-form'
 
 type ModalProps = {
   onClose: () => void
@@ -19,7 +20,7 @@ export default function EditExerciseModal({
 }: ModalProps) {
   const [addSetActive, setAddSetActive] = useState(false)
   const [editActive, setEditActive] = useState(false)
-  const [setId, setSetId] = useState(0)
+  const [selectedSetId, setSelectedSetId] = useState(0)
   const [reps, setReps] = useState(0)
   const [weight, setWeight] = useState(0)
   const [error, setError] = useState<string | null>(null)
@@ -36,22 +37,23 @@ export default function EditExerciseModal({
   function resetForms() {
     setError(null)
     setAddSetActive(false)
+    setEditActive(false)
     setWeight(0)
     setReps(0)
   }
 
-  async function handleAddSet(
-    reps: number,
-    weight: number,
-    exerciseId: number,
-    workoutId: number
-  ) {
+  async function handleAddSet(reps: number, weight: number) {
     if (!checkIfPostiveNumber(reps) || !checkIfPostiveNumber(weight)) {
       return
     }
 
     try {
-      await createSet(exerciseId, reps, weight, workoutId)
+      await createSet(
+        selectedExercise!.id,
+        reps,
+        weight,
+        selectedExercise!.workoutId
+      )
       onClose()
       return resetForms()
     } catch (error) {
@@ -63,9 +65,9 @@ export default function EditExerciseModal({
     }
   }
 
-  async function handleDeleteSet(setId: number, workoutId: number) {
+  async function handleDeleteSet(setId: number) {
     try {
-      await deleteSet(setId, workoutId)
+      await deleteSet(setId, selectedExercise!.workoutId)
       onClose()
       return resetForms()
     } catch (error) {
@@ -77,18 +79,13 @@ export default function EditExerciseModal({
     }
   }
 
-  async function handleEditSet(
-    setId: number,
-    reps: number,
-    weight: number,
-    workoutId: number
-  ) {
+  async function handleEditSet(reps: number, weight: number, setId: number) {
     if (!checkIfPostiveNumber(reps) || !checkIfPostiveNumber(weight)) {
       return
     }
 
     try {
-      await editSet(setId, reps, weight, workoutId)
+      await editSet(setId, reps, weight, selectedExercise!.workoutId)
       onClose()
       setEditActive(false)
       return resetForms()
@@ -129,97 +126,58 @@ export default function EditExerciseModal({
             alt="Exercise-Image"
           />
 
-          <div>
+          <div className={styles['stats-list']}>
             {selectedExercise.sets.map((set, index) => (
-              <div key={set.id}>
+              <div key={set.id} className={styles['stats-container']}>
                 Set {index + 1} <span>Reps:{set.reps}</span>{' '}
                 <span>Weight:{set.weight}</span>
                 <button
-                  type="button"
-                  onClick={() =>
-                    handleDeleteSet(set.id, selectedExercise.workoutId)
-                  }
-                >
-                  <IoIosClose />
-                </button>
-                <button
+                  className={styles['edit-button']}
                   type="button"
                   onClick={() => {
-                    setSetId(set.id)
+                    setSelectedSetId(set.id)
                     setReps(set.reps)
                     setWeight(set.weight)
                     setEditActive(true)
+                    setAddSetActive(false)
                   }}
                 >
                   edit
                 </button>
+                <button
+                  className={styles['delete-button']}
+                  type="button"
+                  onClick={() => handleDeleteSet(set.id)}
+                >
+                  <IoIosClose />
+                </button>
               </div>
             ))}
           </div>
-          {!addSetActive && (
-            <button onClick={() => setAddSetActive(true)}>Add set</button>
+          {!addSetActive && !editActive && (
+            <button
+              onClick={() => {
+                setAddSetActive(true), setEditActive(false)
+              }}
+              className={styles['add-button']}
+            >
+              Add set
+            </button>
           )}
 
           {addSetActive && (
-            <form
-              onSubmit={(e) => {
-                e.preventDefault()
-                handleAddSet(
-                  reps,
-                  weight,
-                  selectedExercise.id,
-                  selectedExercise.workoutId
-                )
-              }}
-            >
-              <label>reps</label>
-              <input
-                type="text"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                value={reps}
-                onChange={(e) => setReps(Number(e.target.value))}
-              />
-              <label>weight</label>
-              <input
-                type="text"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                value={weight}
-                onChange={(e) => setWeight(Number(e.target.value))}
-              />
-              <button type="submit">Add</button>
-            </form>
+            <SetForm
+              handleAddSet={handleAddSet}
+              setAddSetActive={setAddSetActive}
+            />
           )}
 
           {editActive && (
-            <form
-              onSubmit={(e) => {
-                e.preventDefault()
-                handleEditSet(setId, reps, weight, selectedExercise.workoutId)
-              }}
-            >
-              <label>reps</label>
-              <input
-                type="text"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                value={reps}
-                onChange={(e) => setReps(Number(e.target.value))}
-              />
-              <label>weight</label>
-              <input
-                type="text"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                value={weight}
-                onChange={(e) => setWeight(Number(e.target.value))}
-              />
-              <button type="submit">Confirm</button>
-              <button type="button" onClick={() => setEditActive(false)}>
-                <IoIosClose />
-              </button>
-            </form>
+            <SetForm
+              handleEditSet={handleEditSet}
+              setId={selectedSetId}
+              setEditActive={setEditActive}
+            />
           )}
 
           {error && <p>{error}</p>}
