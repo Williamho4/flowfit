@@ -21,8 +21,6 @@ export default function EditExerciseModal({
   const [addSetActive, setAddSetActive] = useState(false)
   const [editActive, setEditActive] = useState(false)
   const [selectedSetId, setSelectedSetId] = useState(0)
-  const [reps, setReps] = useState(0)
-  const [weight, setWeight] = useState(0)
   const [error, setError] = useState<string | null>(null)
 
   function checkIfPostiveNumber(number: number) {
@@ -38,8 +36,6 @@ export default function EditExerciseModal({
     setError(null)
     setAddSetActive(false)
     setEditActive(false)
-    setWeight(0)
-    setReps(0)
   }
 
   async function handleAddSet(reps: number, weight: number) {
@@ -136,8 +132,6 @@ export default function EditExerciseModal({
                   type="button"
                   onClick={() => {
                     setSelectedSetId(set.id)
-                    setReps(set.reps)
-                    setWeight(set.weight)
                     setEditActive(true)
                     setAddSetActive(false)
                   }}

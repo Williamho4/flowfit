@@ -20,6 +20,11 @@ export default function SetForm({
   const [reps, setReps] = useState(0)
   const [weight, setWeight] = useState(0)
 
+  function resetForms() {
+    setWeight(0)
+    setReps(0)
+  }
+
   return (
     <form
       className={styles['set-form']}
@@ -27,8 +32,10 @@ export default function SetForm({
         e.preventDefault()
         if (handleEditSet) {
           handleEditSet(reps, weight, setId!)
+          resetForms()
         } else if (handleAddSet) {
           handleAddSet(reps, weight)
+          resetForms()
         }
       }}
     >
