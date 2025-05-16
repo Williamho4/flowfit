@@ -4,7 +4,7 @@ const openai = new OpenAI({
   apiKey: process.env.AI_API_KEY,
 })
 
-export async function calculateCaloriesBurnt(data: any) {
+export async function calculateCaloriesBurnt(data: unknown) {
   const workoutString = JSON.stringify(data, null, 2)
 
   const response = await openai.chat.completions.create({
