@@ -178,13 +178,17 @@ export default function EditExerciseModal({
             >
               <label>reps</label>
               <input
-                type="number"
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 value={reps}
                 onChange={(e) => setReps(Number(e.target.value))}
               />
               <label>weight</label>
               <input
-                type="number"
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 value={weight}
                 onChange={(e) => setWeight(Number(e.target.value))}
               />
@@ -201,13 +205,17 @@ export default function EditExerciseModal({
             >
               <label>reps</label>
               <input
-                type="number"
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 value={reps}
                 onChange={(e) => setReps(Number(e.target.value))}
               />
               <label>weight</label>
               <input
-                type="number"
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 value={weight}
                 onChange={(e) => setWeight(Number(e.target.value))}
               />
