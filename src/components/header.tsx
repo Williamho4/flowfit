@@ -9,7 +9,14 @@ export default function Header() {
     <header className={styles.header}>
       <Link href="/">FlowFit</Link>
       <Link href="/workout/add">Workout Planner</Link>
-      <button onClick={deleteSession}>Logout</button>
+      <button
+        onClick={() => {
+          deleteSession()
+          localStorage.removeItem('chosenExercises')
+        }}
+      >
+        Logout
+      </button>
     </header>
   )
 }
