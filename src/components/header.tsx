@@ -32,6 +32,7 @@ export default function Header() {
             onClick={() => {
               deleteSession();
               dispatch(removeSession());
+              localStorage.removeItem("chosenExercises");
             }}
           >
             <CiLogout />
