@@ -44,12 +44,12 @@ export async function createWorkout(
     },
   });
 
-  revalidatePath("/");
+  revalidatePath("/dashboard");
 }
 
 export async function getWorkout(userId: number, workoutId: number) {
   if (!workoutId) {
-    return redirect("/");
+    return redirect("/dashboard");
   }
 
   const workout = await prisma.workout.findUnique({

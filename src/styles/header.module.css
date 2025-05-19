@@ -6,3 +6,30 @@
   align-items: center;
   column-gap: 10px;
 }
+
+.link {
+  text-decoration: none;
+  font-weight: bold;
+  color: white;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 0.3vw;
+}
+
+.user__username {
+  text-transform: capitalize;
+  font-weight: bold;
+  color: white;
+}
+
+.logout {
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+}

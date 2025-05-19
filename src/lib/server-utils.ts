@@ -38,7 +38,7 @@ export async function loginUser(email: string, password: string) {
 
   await createSession(user);
 
-  redirect("/");
+  redirect("/dashboard");
 }
 
 export async function logout() {

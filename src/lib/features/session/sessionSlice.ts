@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Payload } from "@/lib/types";
+import { UserInfo } from "@/lib/types";
 
 type SessionState = {
-  session: Payload | null;
+  session: UserInfo | null;
 };
 
 const initialState: SessionState = {
@@ -16,8 +16,11 @@ export const sessionSlice = createSlice({
     setSession: (state, action) => {
       state.session = action.payload;
     },
+    removeSession: (state) => {
+      state.session = null;
+    },
   },
 });
 
-export const { setSession } = sessionSlice.actions;
+export const { setSession, removeSession } = sessionSlice.actions;
 export const sessionReducer = sessionSlice.reducer;
