@@ -23,7 +23,6 @@ export default function Header() {
             Workout Planner
           </Link>
           <div className={styles.user}>
-            {" "}
             <FaUser />
             <p className={styles.user__username}>{session.username}</p>
           </div>

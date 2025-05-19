@@ -5,7 +5,7 @@ import logo from "@/app/favicon.ico";
 export default function Logo() {
   return (
     <Link href={"/"}>
-      <Image src={logo} alt="logo" width={30} height={30} />;
+      <Image src={logo} alt="logo" width={30} height={30} />
     </Link>
   );
 }

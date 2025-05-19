@@ -71,18 +71,38 @@ export async function getWorkout(userId: number, workoutId: number) {
   return { ok: true, data: workout };
 }
 
-export async function getAllWorkoutTitles(userId: number) {
+export async function getThisWeeksWorkouts(userId: number) {
+  const today = new Date();
+  const dayOfWeek = today.getDay(); // 0 (Sun) to 6 (Sat)
+  const diffToMonday = (dayOfWeek + 6) % 7;
+
+  // Start of week (Monday)
+  const startOfWeek = new Date(today);
+  startOfWeek.setDate(today.getDate() - diffToMonday);
+  startOfWeek.setHours(0, 0, 0, 0);
+
+  // End of week (Sunday)
+  const endOfWeek = new Date(startOfWeek);
+  endOfWeek.setDate(startOfWeek.getDate() + 6);
+  endOfWeek.setHours(23, 59, 59, 999);
+
   const workouts = await prisma.workout.findMany({
     where: {
       userId,
+      date: {
+        gte: startOfWeek,
+        lte: endOfWeek,
+      },
     },
     orderBy: {
       date: "asc",
     },
-    select: {
-      title: true,
-      date: true,
-      id: true,
+    include: {
+      exercises: {
+        include: {
+          baseExercise: true,
+        },
+      },
     },
   });
 
@@ -90,17 +110,21 @@ export async function getAllWorkoutTitles(userId: number) {
 }
 
 export async function getTodaysWorkouts(userId: number) {
-  const now = new Date();
-  const year = now.getUTCFullYear();
-  const month = now.getUTCMonth();
-  const day = now.getUTCDate();
+  const targetDate = new Date();
 
-  const date = new Date(Date.UTC(year, month, day, 0, 0, 0));
+  const startOfDay = new Date(targetDate);
+  startOfDay.setHours(0, 0, 0, 0);
+
+  const endOfDay = new Date(targetDate);
+  endOfDay.setHours(23, 59, 59, 999);
 
   const workout = await prisma.workout.findMany({
     where: {
       userId,
-      date,
+      date: {
+        gte: startOfDay,
+        lte: endOfDay,
+      },
     },
     include: {
       exercises: {

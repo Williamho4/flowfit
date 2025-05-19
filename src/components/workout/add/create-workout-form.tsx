@@ -40,6 +40,7 @@ export default function CreateWorkoutForm({
       });
     }
     createWorkout(title, date, userId, workouts);
+    localStorage.removeItem("chosenExercises");
     reset();
     setWorkout([]);
   };
