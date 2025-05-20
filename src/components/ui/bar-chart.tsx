@@ -22,7 +22,7 @@ export default function Chart({ data }: ChartProps) {
         <XAxis dataKey="name" tick={{ fontSize: 12 }} />
         <CartesianGrid />
         <Tooltip />
-        <Bar dataKey="times" stroke="#fff" fill="#3b82f6" />
+        <Bar dataKey="Workouts" stroke="#fff" fill="#3b82f6" />
       </BarChart>
     </ResponsiveContainer>
   )

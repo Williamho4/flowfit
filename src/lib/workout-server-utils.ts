@@ -138,7 +138,7 @@ export async function getLast6WeeksWorkoutStats(userId: number) {
 
     result.push({
       name: `V.${weekNumber}`,
-      times: workouts.length,
+      Workouts: workouts.length,
     })
   }
 
