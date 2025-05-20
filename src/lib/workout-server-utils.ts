@@ -1,23 +1,24 @@
-"use server";
+'use server'
 
-import { revalidatePath } from "next/cache";
-import prisma from "./db";
-import { redirect } from "next/navigation";
-import { BaseExercise } from "@prisma/client";
-import { Exercise, ServerResponse } from "./types";
+import { revalidatePath } from 'next/cache'
+import prisma from './db'
+import { redirect } from 'next/navigation'
+import { BaseExercise } from '@prisma/client'
+import { Exercise, ServerResponse } from './types'
+import { getWeek, subWeeks, format, startOfWeek, endOfWeek } from 'date-fns'
 
 //Base Exercises
 
 export async function getBaseExercises(): Promise<
   ServerResponse<BaseExercise[]>
 > {
-  const exercises = await prisma.baseExercise.findMany();
+  const exercises = await prisma.baseExercise.findMany()
 
   if (exercises.length === 0) {
-    return { ok: false, message: "Could not get exercises" };
+    return { ok: false, message: 'Could not get exercises' }
   }
 
-  return { ok: true, data: exercises };
+  return { ok: true, data: exercises }
 }
 
 //Workouts
@@ -42,9 +43,9 @@ export async function createWorkout(
         })),
       },
     },
-  });
+  })
 
-  revalidatePath("/dashboard");
+  revalidatePath('/dashboard')
 }
 
 export async function deleteWorkout(userId: number, workoutId: number) {
@@ -53,9 +54,9 @@ export async function deleteWorkout(userId: number, workoutId: number) {
       userId,
       id: workoutId,
     },
-  });
+  })
 
-  revalidatePath("/dashboard");
+  revalidatePath('/dashboard')
 }
 
 export async function editWorkout(
@@ -87,14 +88,14 @@ export async function editWorkout(
         },
       },
     },
-  });
+  })
 
-  revalidatePath("/dashboard");
+  revalidatePath('/dashboard')
 }
 
 export async function getWorkout(userId: number, workoutId: number) {
   if (!workoutId) {
-    return redirect("/dashboard");
+    return redirect('/dashboard')
   }
 
   const workout = await prisma.workout.findUnique({
@@ -107,29 +108,57 @@ export async function getWorkout(userId: number, workoutId: number) {
         },
       },
     },
-  });
+  })
 
   if (!workout) {
-    return { ok: false, message: "No workout found" };
+    return { ok: false, message: 'No workout found' }
   }
 
-  return { ok: true, data: workout };
+  return { ok: true, data: workout }
+}
+
+export async function getLast6WeeksWorkoutStats(userId: number) {
+  const result = []
+
+  for (let i = 5; i >= 0; i--) {
+    const weekStart = startOfWeek(subWeeks(new Date(), i), { weekStartsOn: 1 })
+    const weekEnd = endOfWeek(subWeeks(new Date(), i), { weekStartsOn: 1 })
+
+    const weekNumber = getWeek(weekStart)
+
+    const workouts = await prisma.workout.findMany({
+      where: {
+        userId,
+        date: {
+          gte: weekStart,
+          lte: weekEnd,
+        },
+      },
+    })
+
+    result.push({
+      name: `V.${weekNumber}`,
+      times: workouts.length,
+    })
+  }
+
+  return result
 }
 
 export async function getThisWeeksWorkouts(userId: number) {
-  const today = new Date();
-  const dayOfWeek = today.getDay(); // 0 (Sun) to 6 (Sat)
-  const diffToMonday = (dayOfWeek + 6) % 7;
+  const today = new Date()
+  const dayOfWeek = today.getDay() // 0 (Sun) to 6 (Sat)
+  const diffToMonday = (dayOfWeek + 6) % 7
 
   // Start of week (Monday)
-  const startOfWeek = new Date(today);
-  startOfWeek.setDate(today.getDate() - diffToMonday);
-  startOfWeek.setHours(0, 0, 0, 0);
+  const startOfWeek = new Date(today)
+  startOfWeek.setDate(today.getDate() - diffToMonday)
+  startOfWeek.setHours(0, 0, 0, 0)
 
   // End of week (Sunday)
-  const endOfWeek = new Date(startOfWeek);
-  endOfWeek.setDate(startOfWeek.getDate() + 6);
-  endOfWeek.setHours(23, 59, 59, 999);
+  const endOfWeek = new Date(startOfWeek)
+  endOfWeek.setDate(startOfWeek.getDate() + 6)
+  endOfWeek.setHours(23, 59, 59, 999)
 
   const workouts = await prisma.workout.findMany({
     where: {
@@ -140,7 +169,7 @@ export async function getThisWeeksWorkouts(userId: number) {
       },
     },
     orderBy: {
-      date: "asc",
+      date: 'asc',
     },
     include: {
       exercises: {
@@ -149,19 +178,19 @@ export async function getThisWeeksWorkouts(userId: number) {
         },
       },
     },
-  });
+  })
 
-  return workouts;
+  return workouts
 }
 
 export async function getTodaysWorkouts(userId: number) {
-  const targetDate = new Date();
+  const targetDate = new Date()
 
-  const startOfDay = new Date(targetDate);
-  startOfDay.setHours(0, 0, 0, 0);
+  const startOfDay = new Date(targetDate)
+  startOfDay.setHours(0, 0, 0, 0)
 
-  const endOfDay = new Date(targetDate);
-  endOfDay.setHours(23, 59, 59, 999);
+  const endOfDay = new Date(targetDate)
+  endOfDay.setHours(23, 59, 59, 999)
 
   const workout = await prisma.workout.findMany({
     where: {
@@ -179,13 +208,13 @@ export async function getTodaysWorkouts(userId: number) {
         },
       },
     },
-  });
+  })
 
   if (workout.length <= 0) {
-    return { ok: false, message: "No workout found" };
+    return { ok: false, message: 'No workout found' }
   }
 
-  return { ok: true, data: workout };
+  return { ok: true, data: workout }
 }
 
 //SETS
@@ -203,11 +232,11 @@ export async function createSet(
         weight,
         workoutExerciseId,
       },
-    });
-    revalidatePath(`/workout/${workoutId}`);
+    })
+    revalidatePath(`/workout/${workoutId}`)
   } catch (error) {
-    console.error("Error creating set:", error);
-    throw new Error("Failed to create workout set");
+    console.error('Error creating set:', error)
+    throw new Error('Failed to create workout set')
   }
 }
 
@@ -217,11 +246,11 @@ export async function deleteSet(setId: number, workoutId: number) {
       where: {
         id: setId,
       },
-    });
-    revalidatePath(`/workout/${workoutId}`);
+    })
+    revalidatePath(`/workout/${workoutId}`)
   } catch (error) {
-    console.error("Error deleting set:", error);
-    throw new Error("Failed to delete set");
+    console.error('Error deleting set:', error)
+    throw new Error('Failed to delete set')
   }
 }
 
@@ -240,10 +269,10 @@ export async function editSet(
         reps,
         weight,
       },
-    });
-    revalidatePath(`/workout/${workoutId}`);
+    })
+    revalidatePath(`/workout/${workoutId}`)
   } catch (error) {
-    console.error("Error updating set:", error);
-    throw new Error("Failed to update set");
+    console.error('Error updating set:', error)
+    throw new Error('Failed to update set')
   }
 }
