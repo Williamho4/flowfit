@@ -28,7 +28,7 @@ export default function CreateWorkoutForm({
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<Inputs>();
 
-  const handleAddWorkout = (
+  const handleAddWorkout = async (
     title: string,
     date: Date,
     userId: number,
@@ -39,7 +39,7 @@ export default function CreateWorkoutForm({
         message: "Please add atleast one exercise",
       });
     }
-    createWorkout(title, date, userId, workouts);
+    await createWorkout(title, date, userId, workouts);
     localStorage.removeItem("chosenExercises");
     reset();
     setWorkout([]);
