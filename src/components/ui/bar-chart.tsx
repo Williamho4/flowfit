@@ -12,7 +12,7 @@ import {
 type ChartProps = {
   data: {
     name: string
-    times: number
+    Workouts: number
   }[]
 }
 export default function Chart({ data }: ChartProps) {
