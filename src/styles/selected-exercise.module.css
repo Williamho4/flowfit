@@ -33,5 +33,6 @@
 }
 
 .card {
+  width: 80%;
   animation: fade-in-from-top 0.5s;
 }
