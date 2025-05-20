@@ -5,7 +5,7 @@ import prisma from './db'
 import { redirect } from 'next/navigation'
 import { BaseExercise } from '@prisma/client'
 import { Exercise, ServerResponse } from './types'
-import { getWeek, subWeeks, format, startOfWeek, endOfWeek } from 'date-fns'
+import { getWeek, subWeeks, startOfWeek, endOfWeek } from 'date-fns'
 
 //Base Exercises
 
