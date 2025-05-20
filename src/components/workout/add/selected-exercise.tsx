@@ -1,13 +1,13 @@
-import styles from '@/styles/selected-exercise.module.css'
-import { BaseExercise } from '@prisma/client'
-import BaseExerciseCard from '../shared/base-exercise-card'
+import styles from "@/styles/selected-exercise.module.css";
+import { BaseExercise } from "@prisma/client";
+import BaseExerciseCard from "../shared/base-exercise-card";
 
 type SelecetedExerciseProps = {
-  selectedExercise: BaseExercise | null
-  setSelected: React.Dispatch<React.SetStateAction<BaseExercise | null>>
-  error: string | null
-  handleAddExercise: (exercise: BaseExercise) => void
-}
+  selectedExercise: BaseExercise | null;
+  setSelected: React.Dispatch<React.SetStateAction<BaseExercise | null>>;
+  error: string | null;
+  handleAddExercise: (exercise: BaseExercise) => void;
+};
 
 export default function SelectedExercise({
   selectedExercise,
@@ -24,8 +24,8 @@ export default function SelectedExercise({
           <button
             className={styles.selected__button}
             onClick={() => {
-              handleAddExercise(selectedExercise)
-              setSelected(null)
+              handleAddExercise(selectedExercise);
+              setSelected(null);
             }}
           >
             Add
@@ -35,5 +35,5 @@ export default function SelectedExercise({
         <>{!error && <div>Select an exercise</div>}</>
       )}
     </section>
-  )
+  );
 }

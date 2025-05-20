@@ -17,6 +17,24 @@
   align-self: center;
 }
 
+.button-container {
+  display: flex;
+  gap: 10px;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.edit-button {
+  display: flex;
+  width: 100px;
+  height: 40px;
+  align-items: center;
+  padding: 4px 4px;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 730px) {
   .container {
     height: 300px;

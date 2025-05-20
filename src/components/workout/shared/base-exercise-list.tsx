@@ -1,34 +1,34 @@
-'use client'
+"use client";
 
-import styles from '@/styles/base-exercises-list.module.css'
-import BaseExerciseCard from '../shared/base-exercise-card'
-import { BaseExercise } from '@prisma/client'
-import { useState } from 'react'
-import Filter from '../../ui/filter'
-import { muscleFilter } from '@/lib/constants'
+import styles from "@/styles/base-exercises-list.module.css";
+import BaseExerciseCard from "./base-exercise-card";
+import { BaseExercise } from "@prisma/client";
+import { useState } from "react";
+import Filter from "../../ui/filter";
+import { muscleFilter } from "@/lib/constants";
 
 type BaseExerciseListProps = {
-  baseExercises: BaseExercise[] | undefined
-  setSelected: React.Dispatch<React.SetStateAction<BaseExercise | null>>
-  setError: React.Dispatch<React.SetStateAction<string | null>>
-}
+  baseExercises: BaseExercise[] | undefined;
+  setSelected: React.Dispatch<React.SetStateAction<BaseExercise | null>>;
+  setError: React.Dispatch<React.SetStateAction<string | null>>;
+};
 
 export default function BaseExerciseList({
   baseExercises,
   setSelected,
   setError,
 }: BaseExerciseListProps) {
-  const [filteredExercises, setFilteredExercises] = useState(baseExercises)
+  const [filteredExercises, setFilteredExercises] = useState(baseExercises);
 
   const handleFilterChange = (e: string) => {
-    if (e === 'All') {
-      return setFilteredExercises(baseExercises)
+    if (e === "All") {
+      return setFilteredExercises(baseExercises);
     }
 
     setFilteredExercises(
       baseExercises?.filter((exercise) => exercise.category === e)
-    )
-  }
+    );
+  };
 
   return (
     <>
@@ -55,5 +55,5 @@ export default function BaseExerciseList({
         <div>Could not load base exercises</div>
       )}
     </>
-  )
+  );
 }

@@ -1,12 +1,12 @@
-import styles from '@/styles/selected-exercises-list.module.css'
-import { BaseExercise } from '@prisma/client'
-import FlipCard from '../shared/flip-card'
-import BaseExerciseCard from '../shared/base-exercise-card'
+import styles from "@/styles/selected-exercises-list.module.css";
+import { BaseExercise } from "@prisma/client";
+import BaseExerciseCard from "../workout/shared/base-exercise-card";
+import FlipCard from "../workout/shared/flip-card";
 
 type selectedExerciseListProps = {
-  workout: BaseExercise[] | []
-  handleDelete: (id: number) => void
-}
+  workout: BaseExercise[] | [];
+  handleDelete: (id: number) => void;
+};
 
 export default function SelectedExercisesList({
   workout,
@@ -27,5 +27,5 @@ export default function SelectedExercisesList({
         ))}
       </ul>
     </div>
-  )
+  );
 }
