@@ -1,46 +1,54 @@
-import styles from "@/styles/stats.module.css";
-import ProgressBar from "./progress-bar";
-import { calculateCaloriesBurnt } from "@/lib/ai-utils";
-import { Exercise } from "@/lib/types";
+import styles from '@/styles/stats.module.css'
+import ProgressBar from './progress-bar'
+import { calculateCaloriesBurnt } from '@/lib/ai-utils'
+import { Exercise } from '@/lib/types'
+import DeleteWorkoutButton from '../workout/shared/delete-workout-button'
 
 type StatsProps = {
-  exercises: Exercise[];
-};
+  exercises: Exercise[]
+  userId: number
+  workoutId: number
+}
 
-export default async function Stats({ exercises }: StatsProps) {
+export default async function Stats({
+  exercises,
+  userId,
+  workoutId,
+}: StatsProps) {
   const exerciseNameAndSets = exercises.map((exercise) => ({
     name: exercise.baseExercise.name,
     sets: exercise.sets.map((set) => ({ reps: set.reps, weight: set.weight })),
-  }));
-  const caloriesBurnt = await calculateCaloriesBurnt(exerciseNameAndSets);
+  }))
+  const caloriesBurnt = await calculateCaloriesBurnt(exerciseNameAndSets)
 
   const totalSets = exercises.reduce((acc, exercise) => {
-    return acc + exercise.sets.length;
-  }, 0);
+    return acc + exercise.sets.length
+  }, 0)
 
   const totalReps = exercises.reduce((acc, exercise) => {
     const setReps = exercise.sets.reduce((acc, set) => {
-      return acc + set.reps;
-    }, 0);
-    return acc + setReps;
-  }, 0);
+      return acc + set.reps
+    }, 0)
+    return acc + setReps
+  }, 0)
 
   const totalWeightLifted = exercises.reduce((acc, exercise) => {
     const setWeight = exercise.sets.reduce((acc, set) => {
-      return acc + set.reps * set.weight;
-    }, 0);
+      return acc + set.reps * set.weight
+    }, 0)
 
-    return acc + setWeight;
-  }, 0);
+    return acc + setWeight
+  }, 0)
 
   const doneExercises = exercises.reduce((acc, exercise) => {
     if (exercise.sets.length > 0) {
-      return acc + 1;
-    } else return acc;
-  }, 0);
+      return acc + 1
+    } else return acc
+  }, 0)
 
   return (
     <section className={styles.container}>
+      <DeleteWorkoutButton userId={userId} workoutId={workoutId} />
       <div className={styles.info}>
         <p>{`Total Estimated Calories Burnt: ${caloriesBurnt}`}</p>
         <p>{`Total sets done this workout: ${totalSets}`}</p>
@@ -54,5 +62,5 @@ export default async function Stats({ exercises }: StatsProps) {
         />
       </div>
     </section>
-  );
+  )
 }
