@@ -5,7 +5,6 @@ import Image from 'next/image'
 import grayImage from '@/../public/graypic.png'
 import { WorkoutWithoutSets } from '@/lib/types'
 import Link from 'next/link'
-import { SkeletonWorkoutCard } from '@/app/dashboard/loading'
 
 type TodaysWorkoutListProps = {
   workouts: WorkoutWithoutSets[]
@@ -43,7 +42,6 @@ export default function ThisWeekWorkoutList({
           </div>
         </Link>
       ))}
-      <SkeletonWorkoutCard />
     </div>
   )
 }
