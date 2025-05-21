@@ -1,6 +1,4 @@
 import styles from '@/styles/skeleton-exercise-card.module.css'
-import Image from 'next/image'
-import image from '@/../public/graypic.png'
 
 export default function SkeletonExerciseCard() {
   return (
