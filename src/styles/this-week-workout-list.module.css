@@ -10,6 +10,7 @@
   border-radius: 6px;
   overflow: auto;
   padding: 3vh 0;
+  overflow-y: scroll;
 }
 
 .workout {

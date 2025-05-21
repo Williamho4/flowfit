@@ -29,19 +29,11 @@ export default async function Page({ params }: PageProps) {
       {res.data ? (
         <div className={styles.container}>
           <WorkoutEditor workout={res.data.exercises} />
-          <Suspense
-            fallback={
-              <section className={styles['stats-container']}>
-                Loading...
-              </section>
-            }
-          >
-            <Stats
-              exercises={res.data.exercises}
-              userId={session.user.id}
-              workoutId={res.data.id}
-            />
-          </Suspense>
+          <Stats
+            exercises={res.data.exercises}
+            userId={session.user.id}
+            workoutId={res.data.id}
+          />
         </div>
       ) : (
         <div>Cant fint workout</div>

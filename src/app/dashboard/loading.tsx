@@ -6,6 +6,8 @@ export default function loading() {
       <div className={styles['workout-container']}>
         <SkeletonWorkoutCard />
         <SkeletonWorkoutCard />
+        <SkeletonWorkoutCard />
+        <SkeletonWorkoutCard />
       </div>
 
       <div className={styles['chart-container']}>
@@ -16,7 +18,7 @@ export default function loading() {
   )
 }
 
-export const SkeletonWorkoutCard: React.FC = () => {
+const SkeletonWorkoutCard: React.FC = () => {
   return (
     <div className={styles.workout}>
       <h1 className={styles['workout-header']}></h1>
