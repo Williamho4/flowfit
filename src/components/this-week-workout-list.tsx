@@ -1,16 +1,17 @@
-"use client";
+'use client'
 
-import styles from "@/styles/this-week-workout-list.module.css";
-import Image from "next/image";
-import grayImage from "@/../public/graypic.png";
-import { WorkoutWithoutSets } from "@/lib/types";
-import Link from "next/link";
+import styles from '@/styles/this-week-workout-list.module.css'
+import Image from 'next/image'
+import grayImage from '@/../public/graypic.png'
+import { WorkoutWithoutSets } from '@/lib/types'
+import Link from 'next/link'
+import { SkeletonWorkoutCard } from '@/app/dashboard/loading'
 
 type TodaysWorkoutListProps = {
-  workouts: WorkoutWithoutSets[];
-};
+  workouts: WorkoutWithoutSets[]
+}
 
-export default function TodaysWorkoutList({
+export default function ThisWeekWorkoutList({
   workouts,
 }: TodaysWorkoutListProps) {
   return (
@@ -42,6 +43,7 @@ export default function TodaysWorkoutList({
           </div>
         </Link>
       ))}
+      <SkeletonWorkoutCard />
     </div>
-  );
+  )
 }

@@ -1,7 +1,7 @@
 import { getSession } from '@/lib/session'
 import { redirect } from 'next/navigation'
 import styles from '@/styles/dashboard-page.module.css'
-import TodaysWorkoutList from '@/components/this-week-workout-list'
+import ThisWeekWorkoutList from '@/components/this-week-workout-list'
 import {
   getThisWeeksWorkouts,
   getLast6WeeksWorkoutStats,
@@ -27,7 +27,7 @@ export default async function Page() {
           </Link>
         </div>
       ) : (
-        <TodaysWorkoutList workouts={workouts} />
+        <ThisWeekWorkoutList workouts={workouts} />
       )}
 
       <div className={styles['chart-container']}>

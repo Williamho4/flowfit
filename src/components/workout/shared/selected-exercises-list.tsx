@@ -1,14 +1,15 @@
-import styles from "@/styles/selected-exercises-list.module.css";
-import { BaseExercise } from "@prisma/client";
-import FlipCard from "./flip-card";
-import BaseExerciseCard from "./base-exercise-card";
-import { Exercise } from "@/lib/types";
-import ExerciseCard from "../id/exercise-card";
+import styles from '@/styles/selected-exercises-list.module.css'
+import { BaseExercise } from '@prisma/client'
+import FlipCard from './flip-card'
+import BaseExerciseCard from './base-exercise-card'
+import { Exercise } from '@/lib/types'
+import ExerciseCard from '../id/exercise-card'
+import SkeletonExerciseCard from './skeleton-exercise-card'
 
 type selectedExerciseListProps = {
-  workout: (BaseExercise | Exercise)[] | [];
-  handleDelete: (id: number) => void;
-};
+  workout: (BaseExercise | Exercise)[] | []
+  handleDelete: (id: number) => void
+}
 
 export default function SelectedExercisesList({
   workout,
@@ -17,6 +18,12 @@ export default function SelectedExercisesList({
   return (
     <div className={styles.container}>
       <ul className={styles.list}>
+        {workout.length <= 0 && (
+          <>
+            <SkeletonExerciseCard />
+            <SkeletonExerciseCard />
+          </>
+        )}
         {workout.map((exercise) => (
           <FlipCard
             key={exercise.id}
@@ -24,7 +31,7 @@ export default function SelectedExercisesList({
               <button onClick={() => handleDelete(exercise.id)}>Remove</button>
             }
           >
-            {"sets" in exercise ? (
+            {'sets' in exercise ? (
               <ExerciseCard exercise={exercise} />
             ) : (
               <BaseExerciseCard exercise={exercise} />
@@ -33,5 +40,5 @@ export default function SelectedExercisesList({
         ))}
       </ul>
     </div>
-  );
+  )
 }
