@@ -4,7 +4,6 @@ import { redirect } from 'next/navigation'
 import styles from '@/styles/workout-page.module.css'
 import WorkoutEditor from '@/components/workout/id/workout-editor'
 import Stats from '@/components/ui/stats'
-import { Suspense } from 'react'
 
 type PageProps = {
   params: Promise<{ id: string }>
