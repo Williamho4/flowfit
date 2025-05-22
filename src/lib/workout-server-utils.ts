@@ -117,6 +117,56 @@ export async function getWorkout(userId: number, workoutId: number) {
   return { ok: true, data: workout }
 }
 
+export async function getFriendStatsFromThisWeek(userId: number) {
+  const weekStart = startOfWeek(new Date(), { weekStartsOn: 1 })
+  const weekEnd = endOfWeek(new Date(), { weekStartsOn: 1 })
+
+  const friendRequests = await prisma.friendRequest.findMany({
+    where: {
+      OR: [{ requesterId: userId }, { receiverId: userId }],
+      status: 'ACCEPTED',
+    },
+    include: {
+      requester: {
+        select: { id: true, username: true },
+      },
+      receiver: {
+        select: { id: true, username: true },
+      },
+    },
+  })
+
+  const friendIds = friendRequests.map((fr) =>
+    fr.requesterId === userId ? fr.receiver : fr.requester
+  )
+
+  // Create list of userIds: you + your friends
+  const allUserIds = [userId, ...friendIds.map((f) => f.id)]
+
+  const workouts = await prisma.workout.findMany({
+    where: {
+      userId: { in: allUserIds },
+      date: {
+        gte: weekStart,
+        lte: weekEnd,
+      },
+    },
+  })
+
+  // Group workouts by userId
+  const workoutCounts = allUserIds.map((id) => {
+    const count = workouts.filter((w) => w.userId === id).length
+    const name =
+      id === userId
+        ? 'You'
+        : friendIds.find((f) => f.id === id)?.username ?? 'Unknown'
+
+    return { name, Workouts: count }
+  })
+
+  return workoutCounts
+}
+
 export async function getLast6WeeksWorkoutStats(userId: number) {
   const result = []
 

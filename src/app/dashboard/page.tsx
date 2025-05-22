@@ -5,6 +5,7 @@ import ThisWeekWorkoutList from '@/components/this-week-workout-list'
 import {
   getThisWeeksWorkouts,
   getLast6WeeksWorkoutStats,
+  getFriendStatsFromThisWeek,
 } from '@/lib/workout-server-utils'
 import Link from 'next/link'
 import Chart from '@/components/ui/bar-chart'
@@ -17,6 +18,7 @@ export default async function Page() {
   }
   const workouts = await getThisWeeksWorkouts(session.user.id)
   const stats = await getLast6WeeksWorkoutStats(session.user.id)
+  const friendStats = await getFriendStatsFromThisWeek(session.user.id)
 
   return (
     <section className={styles.container}>
@@ -33,6 +35,11 @@ export default async function Page() {
       <div className={styles['chart-container']}>
         <p>Total Planned Workouts</p>
         <Chart data={stats} />
+      </div>
+
+      <div className={styles['chart-container']}>
+        <p>You vs Friends</p>
+        <Chart data={friendStats} />
       </div>
     </section>
   )
