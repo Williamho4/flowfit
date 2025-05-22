@@ -1,7 +1,7 @@
 import FriendList from '@/components/ui/friend-list'
 import { getSession } from '@/lib/session'
 import { redirect } from 'next/navigation'
-import styles from '@/styles/profile-page.module.css'
+import styles from '@/styles/user-profile-page.module.css'
 import FriendRequestList from '@/components/ui/friend-request-list'
 
 export default async function Page() {

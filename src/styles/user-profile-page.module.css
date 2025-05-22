@@ -1,0 +1,33 @@
+.container {
+  width: 60%;
+  margin: 5vh auto;
+  display: flex;
+  justify-content: center;
+  gap: 4vw;
+}
+
+.friend-list-container {
+  width: 50%;
+}
+
+@media screen and (max-width: 1100px) {
+  .container {
+    width: 90%;
+  }
+
+  .friend-list-container {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 670px) {
+  .container {
+    width: 90%;
+    flex-direction: column;
+  }
+
+  .friend-list-container {
+    width: 80%;
+    margin: auto;
+  }
+}
