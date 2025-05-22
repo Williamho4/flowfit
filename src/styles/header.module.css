@@ -5,6 +5,7 @@
   justify-content: center;
   align-items: center;
   column-gap: 1vw;
+  position: relative;
 }
 
 .link {
@@ -17,6 +18,7 @@
   display: flex;
   align-items: center;
   gap: 0.3vw;
+  text-decoration: none;
 }
 
 .user__username {
@@ -25,11 +27,27 @@
   color: white;
 }
 
+.user__icon {
+  text-decoration: none;
+  color: black;
+}
+
 .logout {
   background-color: transparent;
   cursor: pointer;
   border: none;
   font-size: 24px;
   display: flex;
+  align-items: center;
+}
+
+.user-list-container {
+  position: absolute;
+  top: 0%;
+  left: 0;
+  z-index: 10;
+  width: 200px;
+  display: flex;
+  justify-content: center;
   align-items: center;
 }

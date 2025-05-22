@@ -1,0 +1,15 @@
+.container {
+  background-color: #f9fafb;
+  border: solid 1px #e0e0e0;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  width: 90%;
+  border-radius: 10px;
+  display: flex;
+  font-size: large;
+  align-items: center;
+  padding: 4px;
+  gap: 0.6vw;
+  text-transform: capitalize;
+  text-decoration: none;
+  color: black;
+}

@@ -1,0 +1,11 @@
+.container {
+  width: 60%;
+  margin: 5vh auto;
+  display: flex;
+  justify-content: center;
+  gap: 4vw;
+}
+
+.friend-list-container {
+  width: 40%;
+}

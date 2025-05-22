@@ -8,12 +8,36 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  username  String    @unique
-  email     String    @unique
-  password  String
-  createdAt DateTime  @default(now())
-  workouts  Workout[]
+  id               Int             @id @default(autoincrement())
+  username         String          @unique
+  email            String          @unique
+  password         String
+  createdAt        DateTime        @default(now())
+  workouts         Workout[]
+  sentRequests     FriendRequest[] @relation("SentRequests")
+  receivedRequests FriendRequest[] @relation("ReceivedRequests")
+}
+
+model FriendRequest {
+  id Int @id @default(autoincrement())
+
+  requesterId Int
+  receiverId  Int
+
+  requester User @relation("SentRequests", fields: [requesterId], references: [id], onDelete: Cascade)
+  receiver  User @relation("ReceivedRequests", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  status    FriendshipStatus @default(PENDING)
+  createdAt DateTime         @default(now())
+
+  @@unique([requesterId, receiverId])
+}
+
+enum FriendshipStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+  BLOCKED
 }
 
 model Workout {

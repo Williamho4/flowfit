@@ -1,37 +1,37 @@
-"use client";
+'use client'
 
-import styles from "@/styles/header.module.css";
-import Link from "next/link";
-import { deleteSession } from "@/lib/session";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/lib/store";
-import { removeSession } from "@/lib/features/session/sessionSlice";
-import { FaUser } from "react-icons/fa";
-import Logo from "./ui/logo";
-import { CiLogout } from "react-icons/ci";
+import styles from '@/styles/header.module.css'
+import Link from 'next/link'
+import { deleteSession } from '@/lib/session'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@/lib/store'
+import { removeSession } from '@/lib/features/session/sessionSlice'
+import { FaUser } from 'react-icons/fa'
+import Logo from './ui/logo'
+import { CiLogout } from 'react-icons/ci'
 
 export default function Header() {
-  const dispatch = useDispatch();
-  const session = useSelector((state: RootState) => state.session.session);
+  const dispatch = useDispatch()
+  const user = useSelector((state: RootState) => state.session.session)
 
   return (
     <header className={styles.header}>
       <Logo />
-      {session ? (
+      {user ? (
         <>
           <Link href="/workout/add" className={styles.link}>
             Workout Planner
           </Link>
-          <div className={styles.user}>
-            <FaUser />
-            <p className={styles.user__username}>{session.username}</p>
-          </div>
+          <Link href={`/user/profile`} className={styles.user}>
+            <FaUser className={styles.user__icon} />
+            <p className={styles.user__username}>{user.username}</p>
+          </Link>
           <button
             className={styles.logout}
             onClick={() => {
-              deleteSession();
-              dispatch(removeSession());
-              localStorage.removeItem("chosenExercises");
+              deleteSession()
+              dispatch(removeSession())
+              localStorage.removeItem('chosenExercises')
             }}
           >
             <CiLogout />
@@ -43,5 +43,5 @@ export default function Header() {
         </Link>
       )}
     </header>
-  );
+  )
 }
