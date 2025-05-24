@@ -21,7 +21,6 @@ export default function SelectedExercisesList({
         {workout.length <= 0 && (
           <>
             <SkeletonExerciseCard />
-            <SkeletonExerciseCard />
           </>
         )}
         {workout.map((exercise) => (

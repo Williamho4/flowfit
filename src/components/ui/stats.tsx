@@ -50,7 +50,7 @@ export default function Stats({ exercises, userId, workoutId }: StatsProps) {
   )
 }
 
-const StatsInfo: FC<StatsInfoProps> = async ({ exercises }: StatsInfoProps) => {
+const StatsInfo: FC<StatsInfoProps> = async ({ exercises }) => {
   const exerciseNameAndSets = exercises.map((exercise) => ({
     name: exercise.baseExercise.name,
     sets: exercise.sets.map((set) => ({ reps: set.reps, weight: set.weight })),

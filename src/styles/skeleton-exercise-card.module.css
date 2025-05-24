@@ -25,18 +25,21 @@
   height: 10px;
   width: 50%;
   background-color: rgb(214, 214, 214);
+  border-radius: 4px;
 }
 
 .card__category {
   height: 10px;
   width: 20%;
   background-color: rgb(214, 214, 214);
+  border-radius: 4px;
 }
 
 .card__desc {
   height: 10px;
   width: 85%;
   background-color: rgb(214, 214, 214);
+  border-radius: 4px;
 }
 
 .card__image {
