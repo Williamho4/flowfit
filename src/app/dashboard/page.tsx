@@ -9,6 +9,26 @@ import {
 } from '@/lib/workout-server-utils'
 import Link from 'next/link'
 import Chart from '@/components/ui/bar-chart'
+import { FC, Suspense } from 'react'
+import { SkeletonChart } from './loading'
+
+type PlannedWorkoutsChartProps = {
+  stats: Promise<
+    {
+      name: string
+      Workouts: number
+    }[]
+  >
+}
+
+type FriendsWorkoutChartProps = {
+  stats: Promise<
+    {
+      name: string
+      Workouts: number
+    }[]
+  >
+}
 
 export default async function Page() {
   const session = await getSession()
@@ -16,9 +36,10 @@ export default async function Page() {
   if (!session) {
     redirect('/login')
   }
+
   const workouts = await getThisWeeksWorkouts(session.user.id)
-  const stats = await getLast6WeeksWorkoutStats(session.user.id)
-  const friendStats = await getFriendStatsFromThisWeek(session.user.id)
+  const stats = getLast6WeeksWorkoutStats(session.user.id)
+  const friendStats = getFriendStatsFromThisWeek(session.user.id)
 
   return (
     <section className={styles.container}>
@@ -31,16 +52,34 @@ export default async function Page() {
       ) : (
         <ThisWeekWorkoutList workouts={workouts} />
       )}
-
-      <div className={styles['chart-container']}>
-        <p>Total Planned Workouts</p>
-        <Chart data={stats} />
-      </div>
-
-      <div className={styles['chart-container']}>
-        <p>You vs Friends</p>
-        <Chart data={friendStats} />
-      </div>
+      <Suspense
+        fallback={<SkeletonChart chartName={'Total Planned Workouts'} />}
+      >
+        <PlannedWorkoutsChart stats={stats} />
+      </Suspense>
+      <Suspense fallback={<SkeletonChart chartName={'You vs Friends'} />}>
+        <FriendsWorkoutChart stats={friendStats} />
+      </Suspense>
     </section>
+  )
+}
+
+const PlannedWorkoutsChart: FC<PlannedWorkoutsChartProps> = async ({
+  stats,
+}) => {
+  return (
+    <div className={styles['chart-container']}>
+      <p>Total Planned Workouts</p>
+      <Chart data={await stats} />
+    </div>
+  )
+}
+
+const FriendsWorkoutChart: FC<FriendsWorkoutChartProps> = async ({ stats }) => {
+  return (
+    <div className={styles['chart-container']}>
+      <p>You vs Friends</p>
+      <Chart data={await stats} />
+    </div>
   )
 }

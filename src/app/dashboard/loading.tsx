@@ -35,7 +35,7 @@ const SkeletonWorkoutCard: FC = () => {
   )
 }
 
-const SkeletonChart: FC<SkeletonChartProps> = ({ chartName }) => {
+export const SkeletonChart: FC<SkeletonChartProps> = ({ chartName }) => {
   return (
     <div className={styles['chart-container']}>
       <p>{chartName}</p>
